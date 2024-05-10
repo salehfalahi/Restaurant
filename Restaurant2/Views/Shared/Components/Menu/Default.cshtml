@@ -33,9 +33,11 @@
         <ul class="grid-list">
             @foreach (BE.Food item in ViewBag.Firstfoods)
             {
-                <li class="slideUp">
-                    <a >
-                    <div class="menu-card hover:card">
+               <li class="slideUp">
+                   <a class="card-title" asp-action="Index" asp-controller="FoodPage" asp-route-id="@item.Id">
+
+               
+                      <div class="menu-card hover:card">
                         <figure class="card-banner img-holder" style="width: 100px; height: 100px;">
                             <img src="@item.Photo" width="100" height="100" loading="lazy" alt="Greek Salad"
                                  class="img-cover">
@@ -43,18 +45,19 @@
                         <div>
                             <div class="title-wrapper">
                                 <h3 class="title-3">
-                                    <a  class="card-title">@item.Name</a>
+                                           @item.Name
                                 </h3>
                               @*   <span class="badge label-1">جدید</span> *@
-                                <span class="span title-2">@item.Price</span>
+                                <span class="span title-2">@item.Price تومان</span>
                             </div>
                             <p class="card-text label-1">
                                 @item.Description
                             </p>
                         </div>
-                    </div>
-                            </a>
-                </li>
+                      </div>
+                   </a>
+               </li>
+            
             }
         </ul>
         </div>
@@ -87,20 +90,20 @@
                 data.forEach(function (item) {
       
                     html += '<li class="slideUp">';
+                    html += '<a class="card-title" href="/FoodPage/Index/' + item.id + '">';
                     html += '    <div class="menu-card hover:card">';
                     html += '        <figure class="card-banner img-holder" style="width: 100px; height: 100px;">';
                     html += '            <img src="' + item.photo + '" width="100" height="100" loading="lazy" alt="' + item.name + '" class="img-cover">';
                     html += '        </figure>';
                     html += '        <div>';
                     html += '            <div class="title-wrapper">';
-                    html += '                <h3 class="title-3">';
-                    html += '                    <a href="#" class="card-title">' + item.name + '</a>';
-                    html += '                </h3>';
+                    html += '                <h3 class="title-3">' + item.name + '</h3>';
                     html += '                <span class="span title-2">تومان ' + item.price + '</span>';
                     html += '            </div>';
                     html += '            <p class="card-text label-1">' + item.description +'</p>';
                     html += '        </div>';
                     html += '    </div>';
+                    html += '    </a>';
                     html += '</li>';
                 });
                 html += '</ul>';

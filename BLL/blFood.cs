@@ -19,5 +19,11 @@ namespace BLL
             daFood Food = new daFood();
             return await Food.GetFoodsByMenuId(m);
         }
+        public async Task<Food> GetFoodsById(int m)
+        {
+            daFood Food = new daFood();
+            return await Food.GetFoodsById(m);
+        }
+
     }
 }

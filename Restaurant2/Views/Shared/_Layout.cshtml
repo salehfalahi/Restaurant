@@ -26,8 +26,7 @@
     <!--
       - custom css link
     -->
-    <link href="~/assets/css/Homes.css" rel="stylesheet" />
-
+    <link href="~/assets/css/Home.css" rel="stylesheet" />
     <!--
       - preload images
     -->
@@ -37,6 +36,7 @@
 
     <link rel="stylesheet" href="~/fontawesome-pro-6.5.0-web/css/all.css">
     <link rel="stylesheet" href="~/fontawesome-pro-6.5.0-web/css/all.min.css">
+    @await RenderSectionAsync("preHome", required: false)
 </head>
 
 
@@ -51,10 +51,6 @@
         <div class="circle"></div>
         <p class="text">Grilli</p>
     </div>
-
-
-
-
 
     <!--
       - #TOP BAR
@@ -118,17 +114,17 @@
             <a href="#" class="logo">
                 <img src="./assets/images/logo.svg" width="160" height="50" alt="Grilli - Home">
             </a>
-
+            <partial class="partial1" name="_LoginPartial" />
             <nav class="navbar" data-navbar>
 
                 <button class="close-btn" aria-label="close menu" data-nav-toggler>
                     <ion-icon name="close-outline" aria-hidden="true"></ion-icon>
                 </button>
-
+             
                 <a href="#" class="logo">
-                    <img src="./assets/images/logo.svg" width="160" height="50" alt="Grilli - Home">
+                    <img src="~/assets/images/logo.svg" width="160" height="50" alt="Grilli - Home">
                 </a>
-
+                <partial class="partial1" name="_LoginPartial" />
                 <ul class="navbar-list">
 
                     <li class="navbar-item">
@@ -209,8 +205,9 @@
             </button>
             
             <div class="overlay" data-nav-toggler data-overlay></div>
-            <partial class="partial1" name="_LoginPartial" />
+            
         </div>
+       
     </header>
 
 
@@ -225,7 +222,7 @@
     -->
 
     <footer class="footer section has-bg-image text-center"
-            style="background-image: url('./assets/images/footer-bg.jpg')">
+            style="background-image: url('~/assets/images/footer-bg.jpg')">
         <div class="container">
 
             <div class="footer-top grid-list">
@@ -233,7 +230,7 @@
                 <div class="footer-brand has-before has-after">
 
                     <a href="#" class="logo">
-                        <img src="./assets/images/logo.svg" width="160" height="50" loading="lazy" alt="grilli home">
+                        <img src="~/assets/images/logo.svg" width="160" height="50" loading="lazy" alt="grilli home">
                     </a>
 
                     <address class="body-4">
@@ -397,5 +394,20 @@
     <!--پارشیال اسکریپت-->
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="~/fontawesome-pro-6.5.0-web/js/all.js"></script>
+    <!--دکمه ثبت نام-->
+    <script>
+        $(document).ready(function () {
+            $('.theme-popup__button').click(function () {
+                $('.theme-popup__list-container').toggle();
+            });
+
+            // بستن دراپ‌داون در صورت کلیک خارج از آن
+            $(document).on('click', function (event) {
+                if (!$(event.target).closest('.theme-popup').length) {
+                    $('.theme-popup__list-container').hide();
+                }
+            });
+        });</script>
 </body>
 </html>

@@ -9,10 +9,10 @@
         if (User.IsInRole("customer"))
         {
             <div class="theme-popup">
-                <input type="checkbox" id="theme-popup-checkbox">
+               
                 <label for="theme-popup-checkbox" class="theme-popup__button">
                     <span class="theme-popup__icons">
-                    <i class="fa fa-user"></i>
+                    <i class="fa-duotone fa-user"></i>
                     </span>
                     <a class="nav-link dropdown-toggle text-dark" href="#" role="button" data-bs-toggle="dropdown">
                         کاربر
@@ -23,7 +23,7 @@
                         <li>
                         <label for="default">
                             <span class="theme-popup__icons">
-                                <i class="fa-sharp fa-thin fa-browser"></i>
+                                <i class="fa-solid fa-clipboard-check"></i>
                             </span>
                             <span>
                             <a asp-controller="Manager" asp-action="Index">پنل من</a>
@@ -55,15 +55,13 @@
         else if (User.IsInRole("admin"))
         {
             <div class="theme-popup">
-                <input type="radio" name="theme" id="default" checked="">
-                <input type="radio" name="theme" id="light">
-                <input type="radio" name="theme" id="dark">
-                <input type="checkbox" id="checkbox">
+               
+             
                 <label for="checkbox" class="theme-popup__button">
                     <span class="theme-popup__icons">
 
 
-                    <i class="fa fa-user"></i>
+                    <i class="fa-solid fa-user-tie"></i>
                     </span>
                     <a class="nav-link dropdown-toggle text-dark " href="#" role="button" data-bs-toggle="dropdown">
                         ادمین
@@ -74,7 +72,7 @@
                         <li>
                             <label for="default">
                                 <span class="theme-popup__icons">
-                                <i class="fa-sharp fa-thin fa-browser"></i>
+                                <i class="fa-solid fa-clipboard-check"></i>
                                 </span>
                                 <span>
                                     <a asp-controller="Admin" asp-action="Index">پنل من</a>
@@ -109,13 +107,9 @@
         else if (User.IsInRole("manager"))
         {
             <div class="theme-popup">
-                <input type="radio" name="theme" id="default" checked="">
-                <input type="radio" name="theme" id="light">
-                <input type="radio" name="theme" id="dark">
-                <input type="checkbox" id="checkbox">
                 <label for="checkbox" class="theme-popup__button">
                     <span class="theme-popup__icons">
-                    <i class="fa fa-user"></i>
+                    <i class="fa-solid fa-user-tie"></i>
                     </span>
                     <a class="nav-link dropdown-toggle text-dark " href="#" role="button" data-bs-toggle="dropdown">
                         مدیر
@@ -126,7 +120,7 @@
                         <li>
                             <label for="default">
                                 <span class="theme-popup__icons">
-                                <i class="fa-sharp fa-thin fa-browser"></i>
+                                <i class="fa-solid fa-clipboard-check"></i>
                                 </span>
                                 <span>
                                     <a asp-controller="Manager" asp-action="Index">پنل من</a>
@@ -162,8 +156,8 @@
     else
     {
         <ul class="menu-items">
-            <li><a id="register" asp-area="Identity" asp-page="/Account/Register">ثبت نام</a></li>
-            <li><a id="login" asp-area="Identity" asp-page="/Account/Login">ورود</a></li>
+            <li class="btn"><a id="register" asp-area="Identity" asp-page="/Account/Register">ثبت نام</a></li>
+            <li class="btn"><a id="login" asp-area="Identity" asp-page="/Account/Login">ورود</a></li>
         </ul>
     }
 

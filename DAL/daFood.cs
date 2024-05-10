@@ -33,5 +33,12 @@ namespace DAL
                 .ToListAsync();
             return Foods;
         }
+        public async Task<Food> GetFoodsById(int Id)
+        {
+            var q = from i in db.Foods where Id == i.Id select i;
+
+            return q.SingleOrDefault();
+        }
+
     }
 }
