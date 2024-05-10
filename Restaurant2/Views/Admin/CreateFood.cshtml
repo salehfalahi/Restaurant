@@ -1,0 +1,94 @@
+﻿
+@{
+    ViewData["Title"] = "CreateFood";
+    Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
+}
+
+@section preDashboard {
+    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.1/animate.min.css" rel="stylesheet" />
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css" rel="stylesheet" />
+}
+<div class="container">
+
+    <section class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">ثبت منو</h3>
+        </div>
+        <div class="panel-body">
+
+            <form asp-action="CreateFood" asp-controller="Admin" method="post" enctype="multipart/form-data" class="form-horizontal" role="form">
+                <input type="hidden" name="FoodMenuId" id="FoodM" />
+    
+
+                <div class="form-group">
+                    <label for="name" class="col-sm-3 control-label">نام غذا</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" name="Name" id="name" aria-required="true" placeholder="نام ">
+                    </div>
+                </div>
+           
+                <div class="form-group">
+                <label for="about" class="col-sm-3 control-label">توضیحات غذا</label>
+                <div class="col-sm-9">
+                        <textarea name="Description" class="form-control"></textarea>
+                </div>
+                </div>
+                <div class="form-group">
+                
+                <div class="col-sm-3">
+                        <label class="control-label small" for="file_img">قیمت</label>
+                        <input type="number" class="form-control" name="Price" aria-required="true" placeholder="تومان">
+
+                </div>          
+                <div class="col-sm-3">
+                        <label class="control-label small" for="file_img">ستاره</label>
+                        <input type="number" class="form-control" name="Star" min="0" max="5" aria-required="true" placeholder="بین 0 تا 5">
+                </div>
+                </div>
+
+                <div class="form-group">
+                <label for="name" class="col-sm-3 control-label">عکس</label>
+                <div class="col-sm-3">
+                <label class="control-label small" for="file_img">عکس غذا</label> <input type="file" name="Photo">
+                </div>
+                </div>
+                <div class="form-group">
+                <label for="tech" class="col-sm-3 control-label">انتخاب منو</label>
+                <div class="col-sm-3">
+                        <select class="form-control Menus" multiple>
+                            @foreach (BE.Menu item in ViewBag.Menus)
+                            {
+                                <option value="@item.Id">@item.Name</option>
+                            }
+                        </select>
+               
+                </div>
+                </div>  
+                <hr>
+                <div class="form-group">
+                    <div class="col-sm-offset-3 col-sm-9">
+                        <button type="submit" class="btn btn-primary">ثبت</button>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </section>
+
+
+</div>
+@section DashboardScripts {
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js" rel="stylesheet" />
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" rel="stylesheet" />
+    <script>
+        $(document).ready(function () {
+            $('.Menus').change(function () {
+                var selectedBloggerIds = $('.Menus option:selected').map(function () {
+                    return $(this).val();
+                }).get();
+                $('#FoodM').val(selectedBloggerIds.join(','));
+            });
+        });
+    </script>
+}

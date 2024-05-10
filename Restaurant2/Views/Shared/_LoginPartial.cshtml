@@ -1,0 +1,170 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using BE
+@inject SignInManager<AppUser> SignInManager
+@inject UserManager<AppUser> UserManager
+
+
+    @if (SignInManager.IsSignedIn(User))
+    {
+        if (User.IsInRole("customer"))
+        {
+            <div class="theme-popup">
+                <input type="checkbox" id="theme-popup-checkbox">
+                <label for="theme-popup-checkbox" class="theme-popup__button">
+                    <span class="theme-popup__icons">
+                    <i class="fa fa-user"></i>
+                    </span>
+                    <a class="nav-link dropdown-toggle text-dark" href="#" role="button" data-bs-toggle="dropdown">
+                        کاربر
+                    </a>
+                </label>
+                <div class="theme-popup__list-container">
+                    <ul class="theme-popup__list">
+                        <li>
+                        <label for="default">
+                            <span class="theme-popup__icons">
+                                <i class="fa-sharp fa-thin fa-browser"></i>
+                            </span>
+                            <span>
+                            <a asp-controller="Manager" asp-action="Index">پنل من</a>
+                            </span>
+                            </label>
+                        </li>
+                        <li>
+                        <label for="light">
+                        <span class="theme-popup__icons">
+                            <i class="fa-regular fa-address-card"></i>
+                        </span>
+                            <a class="dropdown-item" asp-area="Identity" asp-page="/Account/Manage/Index">پروفایل</a>
+                            </label>
+                        </li>
+                        <li>
+                        <label for="dark">
+                            <span class="theme-popup__icons">
+                                <i class="fa-light fa-right-from-bracket"></i>
+                            </span>
+                            <span>
+                                <a class="dropdown-item" asp-area="Identity" asp-page="/Account/Logout">خروج از حساب</a>
+                            </span>
+                        </label>
+                    </li>
+                    </ul>
+                </div>
+            </div>
+        }
+        else if (User.IsInRole("admin"))
+        {
+            <div class="theme-popup">
+                <input type="radio" name="theme" id="default" checked="">
+                <input type="radio" name="theme" id="light">
+                <input type="radio" name="theme" id="dark">
+                <input type="checkbox" id="checkbox">
+                <label for="checkbox" class="theme-popup__button">
+                    <span class="theme-popup__icons">
+
+
+                    <i class="fa fa-user"></i>
+                    </span>
+                    <a class="nav-link dropdown-toggle text-dark " href="#" role="button" data-bs-toggle="dropdown">
+                        ادمین
+                    </a>
+                </label>
+                <div class="theme-popup__list-container">
+                    <ul class="theme-popup__list">
+                        <li>
+                            <label for="default">
+                                <span class="theme-popup__icons">
+                                <i class="fa-sharp fa-thin fa-browser"></i>
+                                </span>
+                                <span>
+                                    <a asp-controller="Admin" asp-action="Index">پنل من</a>
+                                </span>
+                            </label>
+                        </li>
+                        <li>
+                            <label for="light">
+                                <span class="theme-popup__icons">
+                                <i class="fa-regular fa-address-card"></i>
+                                </span>
+                                <span>
+                                    <a class="dropdown-item" asp-area="Identity" asp-page="/Account/Manage/Index">پروفایل</a>
+                                </span>
+                            </label>
+                        </li>
+                        <li>
+                            <label for="dark">
+                                <span class="theme-popup__icons">
+                                <i class="fa-light fa-right-from-bracket"></i>
+                                </span>
+                                <span>
+                                    <a class="dropdown-item" asp-area="Identity" asp-page="/Account/Logout">خروج از حساب</a>
+                                </span>
+                            </label>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        }
+        else if (User.IsInRole("manager"))
+        {
+            <div class="theme-popup">
+                <input type="radio" name="theme" id="default" checked="">
+                <input type="radio" name="theme" id="light">
+                <input type="radio" name="theme" id="dark">
+                <input type="checkbox" id="checkbox">
+                <label for="checkbox" class="theme-popup__button">
+                    <span class="theme-popup__icons">
+                    <i class="fa fa-user"></i>
+                    </span>
+                    <a class="nav-link dropdown-toggle text-dark " href="#" role="button" data-bs-toggle="dropdown">
+                        مدیر
+                    </a>
+                </label>
+                <div class="theme-popup__list-container">
+                    <ul class="theme-popup__list">
+                        <li>
+                            <label for="default">
+                                <span class="theme-popup__icons">
+                                <i class="fa-sharp fa-thin fa-browser"></i>
+                                </span>
+                                <span>
+                                    <a asp-controller="Manager" asp-action="Index">پنل من</a>
+                                </span>
+                            </label>
+                        </li>
+                        <li>
+                            <label for="light">
+                                <span class="theme-popup__icons">
+                                <i class="fa-regular fa-address-card"></i>
+                                </span>
+                                <span>
+                                    <a class="dropdown-item" asp-area="Identity" asp-page="/Account/Manage/Index">پروفایل</a>
+                                </span>
+                            </label>
+                        </li>
+                        <li>
+                            <label for="dark">
+                                <span class="theme-popup__icons">
+                                <i class="fa-light fa-right-from-bracket"></i>
+                                </span>
+                                <span>
+                                    <a class="dropdown-item" asp-area="Identity" asp-page="/Account/Logout">خروج از حساب</a>
+                                </span>
+                            </label>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        }
+    }
+    else
+    {
+        <ul class="menu-items">
+            <li><a id="register" asp-area="Identity" asp-page="/Account/Register">ثبت نام</a></li>
+            <li><a id="login" asp-area="Identity" asp-page="/Account/Login">ورود</a></li>
+        </ul>
+    }
+
+

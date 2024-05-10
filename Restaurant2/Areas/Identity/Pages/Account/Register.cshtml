@@ -1,0 +1,102 @@
+﻿@page
+@model RegisterModel
+@{
+    ViewData["Title"] = "Register";
+    
+    Layout = "~/Views/Shared/_LayoutIdentity.cshtml";
+
+
+}
+@section pre {
+    <link href="~/css/persian-datepicker.min.css" rel="stylesheet" />
+}
+<div class="row justify-content-end " style="margin-top:2rem;">
+    <div class="col-lg-6 bg-white mx-auto rounded border p-3">
+        <form  id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+            <h2 class="text-center mb-3">فرم ثبت نام</h2>
+            <hr />
+            <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+            <div class="row mb-3">
+                <label class="col-sm-4 col-form-label text-end">نام:</label>
+                <div class="col-sm-8">
+                    <input asp-for="Input.FirstName" class="form-control" autocomplete="username" aria-required="true" placeholder="FirstName" />
+                    <span asp-validation-for="Input.FirstName" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label class="col-sm-4 col-form-label text-end">نام خانوادگی:</label>
+                <div class="col-sm-8">
+                    <input asp-for="Input.LastName" class="form-control" autocomplete="username" aria-required="true" placeholder="LastName" />
+                    <span asp-validation-for="Input.LastName" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label class="col-sm-4 col-form-label text-end">ایمیل:</label>
+                <div class="col-sm-8">
+                    <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" />
+                    <span asp-validation-for="Input.Email" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label class="col-sm-4 col-form-label text-end">شماره تماس:</label>
+                <div class="col-sm-8">
+                    <input asp-for="Input.PhoneNumber" class="form-control" autocomplete="username" aria-required="true" placeholder="09*********" />
+                    <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row mb-3">
+
+                <label class="col-sm-4 col-form-label text-end">تاریخ تولد : </label>
+                <div class="col-sm-8">
+                    <input asp-for="Input.DateOfBirth" type=" text" name="persianDatapicker" id="persianDatapicker">
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label class="col-sm-4 col-form-label text-end">آدرس منزل:</label>
+                <div class="col-sm-8">
+                    <input asp-for="Input.Address" class="form-control" autocomplete="Address" aria-required="false" placeholder="Address" />
+                    <span asp-validation-for="Input.Address" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label class="col-sm-4 col-form-label text-end">گذرواژه:</label>
+                <div class="col-sm-8">
+                    <input asp-for="Input.Password" class="form-control" autocomplete="new-password" aria-required="true" placeholder="Password" />
+                    <span asp-validation-for="Input.Password" class="text-danger"></span>
+                </div>
+            </div>
+       
+
+
+            <div class="row mb-3">
+                <label class="col-sm-4 col-form-label text-end">تکرار گذرواژه:</label>
+                <div class="col-sm-8">
+                    <input asp-for="Input.ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" placeholder="Confirm Password" />
+                    <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="offset-sm-4 col-sm-4 d-grid">
+                    <button id="registerSubmit" type="submit" class="btn btn-primary btn-lg">ثبت</button>
+                </div>
+                <div class="col-sm-4 d-grid">
+                    <a role="button" class="btn btn-outline-primary btn-lg" href="/">خروج</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section IdentityScripts {
+    <script src="~/js/persian-date.min.js"></script>
+    <script src="~/js/site.js"></script>
+    <script src="~/js/persian-datepicker.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#persianDatapicker").persianDatepicker();
+            onlyTimePicker: true
+        });
+    </script>
+}
+

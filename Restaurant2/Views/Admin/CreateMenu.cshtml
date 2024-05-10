@@ -1,0 +1,103 @@
+﻿
+@{
+    ViewData["Title"] = "CreateMenu";
+    Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
+}
+@section preDashboard {
+    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.1/animate.min.css" rel="stylesheet" />
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css" rel="stylesheet" />
+}
+<div class="container">
+
+    <section class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">ثبت منو</h3>
+        </div>
+        <div class="panel-body">
+
+            <form asp-action="CreateMenu" asp-controller="Admin" method="post" enctype="multipart/form-data"  class="form-horizontal" role="form">
+
+         @*   <div class="form-group">
+                     <label for="name" class="col-sm-3 control-label">Тип заказа</label>
+                    <div class="col-sm-9">
+                        <label class="radio-inline">
+                            <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1"> Внешный заказ
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2"> Внутренный заказ
+                        </label>
+                    </div> 
+                </div>  *@
+
+                <div class="form-group">
+                    <label for="name" class="col-sm-3 control-label">نام منو</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" name="Name" id="name" placeholder="نام منو">
+                    </div>
+                </div> 
+             @*    <div class="form-group">
+                    <label for="name" class="col-sm-3 control-label">Название продукта</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" name="name" id="name" placeholder="Название">
+                    </div>
+                </div> 
+                <div class="form-group">
+                    <label for="about" class="col-sm-3 control-label">Описание</label>
+                    <div class="col-sm-9">
+                        <textarea class="form-control"></textarea>
+                    </div>
+                </div> 
+                <div class="form-group">
+                    <label for="qty" class="col-sm-3 control-label">Количество</label>
+                    <div class="col-sm-3">
+                        <input type="text" class="form-control" name="qty" id="qty" placeholder="шт.">
+                    </div>
+                </div> 
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">Сроки</label>
+                    <div class="col-sm-3">
+                        <label class="control-label small" for="date_start">Начало: </label>
+                        <input type="text" class="form-control" name="date_start" id="date_start" placeholder="Начало">
+                    </div>
+                    <div class="col-sm-3">
+                        <label class="control-label small" for="date_finish">Конец:</label>
+                        <input type="text" class="form-control" name="date_finish" id="date_finish" placeholder="Конец">
+                    </div>
+                </div> 
+                <div class="form-group">
+                    <label for="name" class="col-sm-3 control-label">Загрузить</label>
+                    <div class="col-sm-3">
+                        <label class="control-label small" for="file_img">Картинка (jpg/png):</label> <input type="file" name="file_img">
+                    </div>
+                    <div class="col-sm-3">
+                        <label class="control-label small" for="file_img">Файлы:</label>  <input type="file" name="file_archive">
+                    </div>
+                </div> 
+                <div class="form-group">
+                    <label for="tech" class="col-sm-3 control-label">Технолог</label>
+                    <div class="col-sm-3">
+                        <select class="form-control">
+                            <option value="">Выберите</option>
+                            <option value="texnolog2">Технолог 2</option>
+                            <option value="texnolog3">Технолог 3</option>
+                        </select>
+                    </div>
+                </div>  *@
+                <hr>
+                <div class="form-group">
+                    <div class="col-sm-offset-3 col-sm-9">
+                        <button type="submit" class="btn btn-primary">ثبت</button>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </section>
+
+
+</div>
+@section DashboardScripts {
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js" rel="stylesheet" />
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" rel="stylesheet" />
+}
