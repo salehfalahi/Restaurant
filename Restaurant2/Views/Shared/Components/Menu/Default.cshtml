@@ -11,13 +11,8 @@
                     @foreach (BE.Menu item in ViewBag.Menus)
                     {
                     <li class="nav-item">
-                        <button class="btn btn-primary active"
-                                type="button"
-                                id="breakfast-tab"
-                                data-toggle="tab"
-                                href="#breakfast"
-                                role="tab"
-                                data-menu-id="@item.Id"
+                        <button class="btn btn-primary active"type="button"data-toggle="tab" role="tab"
+                        data-menu-id="@item.Id"
                                 onclick="submitForm(this);">
                             <span class="text text-1">  @item.Name</span>
                             <span class="text text-2" aria-hidden="true">  @item.Name</span>                             
@@ -119,12 +114,5 @@
     }
 
 </script>
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        var elements = document.querySelectorAll(".fadeIn");
-        elements.forEach(function (element) {
-            element.classList.add("show");
-        });
-    });
-</script>
+
 

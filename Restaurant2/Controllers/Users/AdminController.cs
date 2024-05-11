@@ -2,6 +2,7 @@
 using BLL;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Restaurant2.Models;
 
 namespace Restaurant2.Controllers.Users
 {
@@ -13,7 +14,8 @@ namespace Restaurant2.Controllers.Users
         {
             environment = _environment;
         }
-        public IActionResult Index()
+		private readonly blFood _blf = new blFood();
+		public IActionResult Index()
         {
             return View();
         }
@@ -44,19 +46,18 @@ namespace Restaurant2.Controllers.Users
             ViewBag.Menus = data.ToList();
             return View();
         }
+
+
         [HttpPost]
         public IActionResult CreateFood(Models.Food food)
         {
             blFood blFood = new blFood();
-            Food f = new Food();
+            BE.Food f = new BE.Food();
             f.Name = food.Name;
             f.Description = food.Description;
             f.Price = food.Price;
             f.Star = food.Star;
-
-
-            f.MenuId = food.FoodMenuId;
-           
+            f.MenuId = food.MenuId;     
             UploadFile upf = new UploadFile(environment);
             if (food.Photo != null)
             {
@@ -65,16 +66,56 @@ namespace Restaurant2.Controllers.Users
             blFood.Create(f);
             return RedirectToAction("Index", "Admin");
         }
+	
+
+		[HttpGet]
+        public async Task<IActionResult> ManageFood(int menuId)
+        {
+			BLL.blMenu blm = new BLL.blMenu();
+			ViewBag.Menus = await blm.ReadAsync();
+			if (menuId > 1)
+			{
+				ViewBag.Firstfoods = await _blf.GetFoodsByMenuId(menuId);
+			}
+			else
+			{
+				menuId = 2;
+				ViewBag.Firstfoods = await _blf.GetFoodsByMenuId(menuId);
+			}
+			blFood blFood = new blFood();
+            var data = await blFood.ReadAsync();
+            var model = data.ToList();
+            return View(model);
+        }
+        [HttpPost]
+        public IActionResult ManageFood(Models.Food b)
+        {
+            blFood blFood = new blFood();
+            BE.Food Food = new BE.Food();
+            Food.Id = b.Id;
+            Food.Name = b.Name;
+            Food.Price = b.Price;
+            Food.Description = b.Description;
+            Food.Star = b.Star;
+            Food.MenuId = b.MenuId;
+            if (b.Photo != null)
+            {
+                UploadFile upf = new UploadFile(environment);
+                Food.Photo = upf.Upload(b.Photo);
+            }
+			_blf.ManageFood(Food);
+            return RedirectToAction("ManageFood", "Admin");
+        }
 
         //[HttpGet]
         //public ActionResult Blog(int id)
         //{
-        //    blCardBlog blCardBlog = new blCardBlog();
-        //    CardBlog? blog = new CardBlog();
-        //    blog = blCardBlog.SearchById(id);
+        //    blFood blFood = new blFood();
+        //    Food? blog = new Food();
+        //    blog = blFood.SearchById(id);
         //    if (blog != null)
         //    {
-        //        ViewBag.CardBlogTopics = blog.CardBlogTopics;
+        //        ViewBag.FoodTopics = blog.FoodTopics;
         //        ViewBag.Blogger = blog.Blogger;
         //        ViewBag.BlogContinuations = blog.BlogContinuations;
         //        return View(blog);
@@ -84,8 +125,8 @@ namespace Restaurant2.Controllers.Users
         //[HttpGet]
         //public async Task<IActionResult> Show()
         //{
-        //    blCardBlog blCardBlog = new blCardBlog();
-        //    var data = await blCardBlog.ReadAsync();
+        //    blFood blFood = new blFood();
+        //    var data = await blFood.ReadAsync();
         //    var model = data.ToList();
         //    return View(model);
         //}
@@ -103,25 +144,25 @@ namespace Restaurant2.Controllers.Users
         //    return View();
         //}
         //[HttpPost]
-        //public IActionResult Create(Models.Blog.CardBlog b)
+        //public IActionResult Create(Models.Blog.Food b)
         //{
-        //    blCardBlog blcard = new blCardBlog();
-        //    CardBlog card = new CardBlog();
+        //    blFood blcard = new blFood();
+        //    Food card = new Food();
         //    card.Title = b.Title;
         //    card.Description = b.Description;
         //    card.Subtitle = b.Subtitle;
         //    card.Views = b.Views;
-        //    if (b.TopicCardBlogs != null)
+        //    if (b.TopicFoods != null)
         //    {
-        //        foreach (var id in b.TopicCardBlogs)
+        //        foreach (var id in b.TopicFoods)
         //        {
-        //            var topicCardBlog = new CardBlogTopic
+        //            var topicFood = new FoodTopic
         //            {
         //                TopicId = id,
-        //                CardBlogId = card.Id
+        //                FoodId = card.Id
         //            };
 
-        //            card.CardBlogTopics.Add(topicCardBlog);
+        //            card.FoodTopics.Add(topicFood);
         //        }
         //    }
 
@@ -136,28 +177,28 @@ namespace Restaurant2.Controllers.Users
         //    return RedirectToAction("Index", "Admin");
         //}
         //[HttpPost]
-        //public void Update(Models.Blog.CardBlog b)
+        //public void Update(Models.Blog.Food b)
         //{
-        //    blCardBlog blcard = new blCardBlog();
-        //    CardBlog CardBlog = new CardBlog();
-        //    CardBlog.Id = b.Id;
-        //    CardBlog.Title = b.Title;
-        //    CardBlog.Description = b.Description;
-        //    CardBlog.Subtitle = b.Subtitle;
-        //    CardBlog.Views = b.Views;
+        //    blFood blcard = new blFood();
+        //    Food Food = new Food();
+        //    Food.Id = b.Id;
+        //    Food.Title = b.Title;
+        //    Food.Description = b.Description;
+        //    Food.Subtitle = b.Subtitle;
+        //    Food.Views = b.Views;
         //    if (b.Photo != null)
         //    {
         //        UploadFile upf = new UploadFile(environment);
-        //        CardBlog.Photo = upf.Upload(b.Photo);
+        //        Food.Photo = upf.Upload(b.Photo);
         //    }
-        //    blcard.Update(CardBlog);
+        //    blcard.Update(Food);
         //}
         //[HttpPost]
 
-        //public async Task<ActionResult> IncrementViews(CardBlog cardBlog)
+        //public async Task<ActionResult> IncrementViews(Food Food)
         //{
-        //    blCardBlog blcard = new blCardBlog();
-        //    int cardId = cardBlog.Id;
+        //    blFood blcard = new blFood();
+        //    int cardId = Food.Id;
         //    await blcard.ViewAdder(cardId);
         //    return Json(new { success = true });
         //}
@@ -166,8 +207,8 @@ namespace Restaurant2.Controllers.Users
 
         //public async Task<IActionResult> Edit(int Id)
         //{
-        //    blCardBlog blCardBlog = new blCardBlog();
-        //    var card = blCardBlog.SearchById(Id);
+        //    blFood blFood = new blFood();
+        //    var card = blFood.SearchById(Id);
 
         //    blBlogger blBlogger = new blBlogger();
         //    var data = await blBlogger.ReadAsync();

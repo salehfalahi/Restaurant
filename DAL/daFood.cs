@@ -37,8 +37,33 @@ namespace DAL
         {
             var q = from i in db.Foods where Id == i.Id select i;
 
-            return q.SingleOrDefault();
+            var result = await q.SingleOrDefaultAsync();
+
+            if (result == null)
+            {
+                throw new Exception("غذایی پیدا نشد");
+            }
+
+            return result;
+        }
+        public async Task<List<Food>> ReadAsync()
+        {
+            return await db.Foods.ToListAsync();
         }
 
+        public void ManageFood(Food s)
+        {
+            var q = from i in db.Foods where i.Id == s.Id select i;
+            Food sp = new Food();
+            sp = q.Single();
+            sp.Id = s.Id;
+            sp.Name = s.Name;
+            sp.Star = s.Star;
+            sp.Price = s.Price;
+            sp.Description = s.Description;
+            sp.Photo = s.Photo;
+            sp.MenuId = s.MenuId;
+            db.SaveChanges();
+        }
     }
 }

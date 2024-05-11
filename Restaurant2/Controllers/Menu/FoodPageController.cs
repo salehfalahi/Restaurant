@@ -19,7 +19,7 @@ namespace Restaurant2.Controllers.Menu
             return View();
         }
 
-
+        
 
     }
 }

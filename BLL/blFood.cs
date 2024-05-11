@@ -14,7 +14,8 @@ namespace BLL
         {
             daFood Food = new daFood();
             Food.Create(m);
-        } public async Task<List<Food>> GetFoodsByMenuId(int m)
+        }
+        public async Task<List<Food>> GetFoodsByMenuId(int m)
         {
             daFood Food = new daFood();
             return await Food.GetFoodsByMenuId(m);
@@ -23,6 +24,17 @@ namespace BLL
         {
             daFood Food = new daFood();
             return await Food.GetFoodsById(m);
+        }
+        public async Task<List<Food>> ReadAsync()
+        {
+            daFood Food = new daFood();
+            return await Food.ReadAsync();
+        }
+
+        public void ManageFood(Food m)
+        {
+            daFood Food = new daFood();
+            Food.ManageFood(m);
         }
 
     }

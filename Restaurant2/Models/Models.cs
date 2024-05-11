@@ -66,17 +66,14 @@ namespace Restaurant2.Models
         public IFormFile? Photo { get; set; }
         public int Price { get; set; }
         public float? Star { get; set; }
-        [ForeignKey("FoodOrderId")]
-        public int FoodOrderId { get; set; }
-        public Order Order { get; set; }
 
-        [ForeignKey("FoodMenuId")]
-        public int FoodMenuId { get; set; }
+        [ForeignKey("MenuId")]
+        public int MenuId { get; set; }
         public Menu Menu { get; set; }
 
-        [ForeignKey("FoodFoodHistoryId")]
-        public int FoodFoodHistoryId { get; set; }
-        public FoodHistory FoodHistory { get; set; }
+        [ForeignKey("FoodHistoryId")]
+        public int FoodHistoryId { get; set; }
+        public FoodHistory? FoodHistory { get; set; }
 
         public List<Comment> Comments { get; set; } = new List<Comment>();
     }
