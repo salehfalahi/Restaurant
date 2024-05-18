@@ -16,7 +16,7 @@
             {
                 file.CopyTo(f);
             }
-            return "/images/" + fileName; // برگرداندن مسیر فایل
+            return "/images/" + fileName; 
         }
     }
 }

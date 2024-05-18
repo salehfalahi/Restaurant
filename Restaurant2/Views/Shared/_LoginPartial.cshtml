@@ -8,49 +8,41 @@
     {
         if (User.IsInRole("customer"))
         {
-            <div class="theme-popup">
-               
-                <label for="theme-popup-checkbox" class="theme-popup__button">
-                    <span class="theme-popup__icons">
+        <div class="theme-popup">
+            <label for="theme-popup-checkbox" class="theme-popup__button">
+                <span class="theme-popup__icons">
                     <i class="fa-duotone fa-user"></i>
-                    </span>
-                    <a class="nav-link dropdown-toggle text-dark" href="#" role="button" data-bs-toggle="dropdown">
-                        کاربر
-                    </a>
-                </label>
-                <div class="theme-popup__list-container">
-                    <ul class="theme-popup__list">
-                        <li>
-                        <label for="default">
+                </span>
+                <a class="nav-link dropdown-toggle text-dark" href="#" role="button" data-bs-toggle="dropdown">
+                    کاربر
+                </a>
+            </label>
+            <div class="theme-popup__list-container">
+                <ul class="theme-popup__list">
+                    <li>
+                        <label class="theme-popup__button" for="default">
                             <span class="theme-popup__icons">
                                 <i class="fa-solid fa-clipboard-check"></i>
                             </span>
                             <span>
-                            <a asp-controller="Manager" asp-action="Index">پنل من</a>
+                                <a asp-controller="Manager" asp-action="Index">پنل من</a>
                             </span>
-                            </label>
-                        </li>
-                        <li>
-                        <label for="light">
-                        <span class="theme-popup__icons">
-                            <i class="fa-regular fa-address-card"></i>
-                        </span>
-                            <a class="dropdown-item" asp-area="Identity" asp-page="/Account/Manage/Index">پروفایل</a>
-                            </label>
-                        </li>
-                        <li>
+                        </label>
+                    </li>
+                    <li>
                         <label for="dark">
                             <span class="theme-popup__icons">
                                 <i class="fa-light fa-right-from-bracket"></i>
                             </span>
                             <span>
-                                <a class="dropdown-item" asp-area="Identity" asp-page="/Account/Logout">خروج از حساب</a>
+                                <a  class="dropdown-item" asp-area="Identity" asp-page="/Account/Logout">خروج از حساب</a>
                             </span>
                         </label>
                     </li>
-                    </ul>
-                </div>
+                </ul>
             </div>
+        </div>
+
         }
         else if (User.IsInRole("admin"))
         {
@@ -63,34 +55,34 @@
 
                     <i class="fa-solid fa-user-tie"></i>
                     </span>
-                    <a class="nav-link dropdown-toggle text-dark " href="#" role="button" data-bs-toggle="dropdown">
+                <a class="nav-link dropdown-toggle text-dark " href="#" role="button" data-bs-toggle="dropdown">
                         ادمین
                     </a>
                 </label>
                 <div class="theme-popup__list-container">
                     <ul class="theme-popup__list">
                         <li>
-                            <label for="default">
+                        <label class="theme-popup__button" for="default">
                                 <span class="theme-popup__icons">
                                 <i class="fa-solid fa-clipboard-check"></i>
                                 </span>
                                 <span>
-                                    <a asp-controller="Admin" asp-action="Index">پنل من</a>
+                                <a class="theme-popup__button" asp-controller="Admin" asp-action="Index">پنل من</a>
                                 </span>
                             </label>
                         </li>
                         <li>
-                            <label for="light">
+                        <label class="theme-popup__button" for="light">
                                 <span class="theme-popup__icons">
                                 <i class="fa-regular fa-address-card"></i>
                                 </span>
                                 <span>
-                                    <a class="dropdown-item" asp-area="Identity" asp-page="/Account/Manage/Index">پروفایل</a>
+                                <a class="dropdown-item  theme-popup__button" asp-area="Identity" asp-page="/Account/Manage/Index">پروفایل</a>
                                 </span>
                             </label>
                         </li>
                         <li>
-                            <label for="dark">
+                        <label class="theme-popup__button" for="dark">
                                 <span class="theme-popup__icons">
                                 <i class="fa-light fa-right-from-bracket"></i>
                                 </span>
@@ -118,7 +110,7 @@
                 <div class="theme-popup__list-container">
                     <ul class="theme-popup__list">
                         <li>
-                            <label for="default">
+                        <label class="theme-popup__button" for="default">
                                 <span class="theme-popup__icons">
                                 <i class="fa-solid fa-clipboard-check"></i>
                                 </span>
@@ -128,7 +120,7 @@
                             </label>
                         </li>
                         <li>
-                            <label for="light">
+                        <label class="theme-popup__button" for="light">
                                 <span class="theme-popup__icons">
                                 <i class="fa-regular fa-address-card"></i>
                                 </span>
@@ -138,7 +130,7 @@
                             </label>
                         </li>
                         <li>
-                            <label for="dark">
+                        <label class="theme-popup__button" for="dark">
                                 <span class="theme-popup__icons">
                                 <i class="fa-light fa-right-from-bracket"></i>
                                 </span>

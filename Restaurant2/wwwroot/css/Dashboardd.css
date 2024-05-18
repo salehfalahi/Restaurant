@@ -1,5 +1,5 @@
-﻿@import url('../../fontawesome-pro-6.5.0-web/css/all.min.css');
-@import url('../../fontawesome-pro-6.5.0-web/css/all.css');
+﻿
+@import url('../../fontawesome.pro.6.5.2/fontawesome.pro.6.5.2/css/all.css');
 
 @font-face {
     font-family: 'iransansx-medium';
@@ -590,7 +590,7 @@ table.table .avatar {
     }
 /* Modal styles */
 .modal .modal-dialog {
-    max-width: 400px;
+    max-width: 600px;
 }
 
 .modal .modal-header, .modal .modal-body, .modal .modal-footer {

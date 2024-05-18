@@ -20,10 +20,10 @@ namespace BLL
             daFood Food = new daFood();
             return await Food.GetFoodsByMenuId(m);
         }
-        public async Task<Food> GetFoodsById(int m)
+        public async Task<Food> GetFoodById(int m)
         {
             daFood Food = new daFood();
-            return await Food.GetFoodsById(m);
+            return await Food.GetFoodById(m);
         }
         public async Task<List<Food>> ReadAsync()
         {

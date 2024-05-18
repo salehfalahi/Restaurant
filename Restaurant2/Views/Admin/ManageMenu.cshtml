@@ -1,0 +1,425 @@
+﻿@model List<BE.Food>
+@{
+    ViewData["Title"] = "ManageFood";
+    Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
+}
+@section preDashboard{
+    <link href="~/css/dropify.css" rel="stylesheet" />
+}
+<div class="table-wrapper">
+	<div class="table-title">
+		<div class="row">
+			<div class="col-sm-6">
+				<!-- بخش مدیریت غذاها در سمت چپ -->
+				<h2>مدیریت <b>غذاها</b></h2>
+			</div>
+			<div class="col-sm-6 text-right">
+				<!-- بخش فیلتر منو در سمت راست -->
+				<form asp-action="GetFoodsByMenuId" asp-controller="Menu" method="post">
+					<label style="margin-bottom: 10px;margin-left: 5px; font-size: 18px;">:فیلتر منو</label>
+					<div class="row" style="display: flex; flex-wrap: wrap;">
+						@foreach (var item in ViewBag.Menus)
+						{
+							<button class="btn btn-primary active mr-3 mb-3"
+									type="button"
+									data-toggle="tab"
+									role="tab"
+									data-menu-id="@item.Id"
+									onclick="submitForm(this);">
+								<span class="text text-1">@item.Name</span>
+							</button>
+						}
+					</div>					
+				</form>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-12">
+				
+				<div class="text-center">
+					<a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal"><i class="fa-solid fa-plus"></i> <span>افزودن</span></a>
+					<a href="#deleteEmployeeModal" class="btn btn-danger" data-toggle="modal"><i class="fa-solid fa-trash"></i> <span> حذف</span></a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<table id="table-container" class="table table-striped table-hover">
+		<thead>
+			<tr>
+				<th>
+					<span class="custom-checkbox">
+						<input type="checkbox" id="selectAll">
+						<label for="selectAll"></label>
+					</span>
+				</th>
+				<th>عکس</th>
+				<th>نام غذا</th>
+				<th>توضیحات</th>
+				<th>قیمت</th>
+				<th>امتیاز</th>
+				<th>حذف / ویرایش</th>
+			</tr>
+		</thead>
+		<tbody>	
+				@foreach (var item in ViewBag.Firstfoods)
+				{
+				int i = 1;
+				<tr>
+					<td>
+						<span class="custom-checkbox">
+							<input type="checkbox" id="checkbox @i" name="options[]" value="@item.Id">
+							<label for="checkbox1"></label>
+						</span>
+					</td>
+
+					<td><img id="imagePreview" src="@item.Photo" style="object-fit: cover;width:70px;height:40px;"></td>
+					<td>@item.Name</td>
+					<td>@item.Description</td>
+					<td>@item.Price.ToString("N0")</td>
+					<td>@item.Star</td>
+					<td hidden>@item.MenuId</td>
+
+					<td>
+						<a href="#editEmployeeModal" class="edit" id="editt" data-toggle="modal"><i class="fa-light fa-pen-to-square"></i></a>
+						<a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="fa-solid fa-trash-can"></i></a>
+					</td>
+				</tr>
+				i++;
+				}
+	</tbody>
+</table>
+	<div class="clearfix">
+		<div class="hint-text">Showing <b>5</b> out of <b>25</b> entries</div>
+		<ul class="pagination">
+			<li class="page-item disabled"><a href="#">Previous</a></li>
+			<li class="page-item"><a href="#" class="page-link">1</a></li>
+			<li class="page-item"><a href="#" class="page-link">2</a></li>
+			<li class="page-item active"><a href="#" class="page-link">3</a></li>
+			<li class="page-item"><a href="#" class="page-link">4</a></li>
+			<li class="page-item"><a href="#" class="page-link">5</a></li>
+			<li class="page-item"><a href="#" class="page-link">Next</a></li>
+		</ul>
+	</div>
+</div>
+<!-- Edit Modal HTML -->
+<div id="addEmployeeModal" class="modal fade">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			
+				<div class="modal-header">
+				<h4 class="modal-title">ثبت منو</h4>
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				</div>
+				<section class="panel panel-default">
+					
+					<div class="panel-body">
+
+						<form asp-action="CreateFood" asp-controller="Admin" method="post" enctype="multipart/form-data" class="form-horizontal" role="form">
+							<input type="hidden" name="FoodMenuId" id="FoodM" />
+
+
+							<div class="form-group">
+								<label for="name" class="col-sm-3 control-label">نام غذا</label>
+								<div class="col-sm-9">
+									<input type="text" class="form-control" name="Name" id="name" aria-required="true" placeholder="نام ">
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label for="about" class="col-sm-3 control-label">توضیحات غذا</label>
+								<div class="col-sm-9">
+									<textarea name="Description" class="form-control"></textarea>
+								</div>
+							</div>
+							<div class="form-group">
+
+								<div class="col-sm-6">
+									<label class="control-label small" for="file_img">قیمت</label>
+									<input type="number" class="form-control" name="Price" aria-required="true" placeholder="تومان">
+
+								</div>
+								<div class="col-sm-6">
+									<label class="control-label small" for="file_img">ستاره</label>
+									<input type="number" class="form-control" name="Star" min="0" max="5" aria-required="true" placeholder="بین 0 تا 5">
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label for="name" class="col-sm-3 control-label">عکس</label>
+								<div class="col-sm-9">
+									<label class="control-label small" for="file_img">عکس غذا</label>
+								    <input src="" type="file" name="Photo" id="NewPhoto" class="dropify" style="object-fit: cover;max-width:250px;max-height:150px;">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="tech" class="col-sm-3 control-label">انتخاب منو</label>
+								<div class="col-sm-4">
+									<select class="form-control Menus" multiple>
+										@foreach (BE.Menu item in ViewBag.Menus)
+										{
+											<option value="@item.Id">@item.Name</option>
+										}
+									</select>
+
+								</div>
+							</div>
+							<hr>
+						<div class="modal-footer">
+							<input type="button" class="btn btn-default" data-dismiss="modal" value="خروج">				
+							<button type="submit" class="btn btn-primary" aria-hidden="true">ثبت</button>
+						</div>
+						</form>
+					</div>
+				</section>
+		</div>
+	</div>
+</div>
+<!-- Edit Modal HTML -->
+<div class="modal fade" id="editEmployeeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">ویرایش غذا</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+				<form asp-action="UpdateFood" asp-controller="Admin" id="editcard" method="post" enctype="multipart/form-data">
+                  
+						<input id="idd" hidden  required name="Id" type="hidden">
+					<input type="hidden" hidden name="MenuId" id="FoodM" />
+                 
+                    <div class="form-group">
+                        <label for="Name">نام</label>
+                        <input id="Name" class="form-control validate" required name="Name" type="text">
+                    </div>
+                    <div class="form-group">
+                        <label for="Description">توضیحات</label>
+						<textarea id="Description" class="form-control materialize-textarea" name="Description" placeholder="چیزی بنویسید "></textarea>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p>نمره</p>
+							<input type="number" name="Star" min="0" max="5" id="Star">
+						</div>
+                        <div class="col-md-6">
+                            <p>قیمت</p>
+							<input type="text" pattern="\d*" title="لطفاً فقط عدد وارد کنید" name="Price"  id="Price">
+                        </div>
+                    </div>  
+					<div class="row">
+                        <div class="col-md-6">
+                            <p>عکس فعلی</p>
+							<img src="" id="LastPhoto" class="img-fluid" style="object-fit: cover;max-width:250px;max-height:150px;">
+                        </div>
+						<div class="col-md-6">
+                            <p>عکس جدید</p>
+							<input src="" type="file" name="Photo"  id="NewPhoto" class="dropify" style="object-fit: cover;max-width:250px;max-height:150px;">
+                        </div>	
+                    </div>  
+					<hr>
+                      <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">بستن</button>
+						<button type="submit" class="btn btn-primary " aria-hidden="true">
+							ویرایش
+						  </button>
+                      </div>
+            </form>
+			</div>
+        </div>
+    </div>
+</div>
+
+<!-- Delete Modal HTML -->
+<div id="deleteEmployeeModal" class="modal fade">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<form>
+				<div class="modal-header">
+					<h4 class="modal-title">Delete Employee</h4>
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				</div>
+				<div class="modal-body">
+					<p>Are you sure you want to delete these Records?</p>
+					<p class="text-warning"><small>This action cannot be undone.</small></p>
+				</div>
+				<div class="modal-footer">
+					<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+					<input type="submit" class="btn btn-danger" value="Delete">
+				</div>
+			</form>
+		</div>
+	</div>
+	</div>
+@section DashboardScripts{
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script>
+		$(document).ready(function () {
+			// Activate tooltip
+			$('[data-toggle="tooltip"]').tooltip();
+
+			// Select/Deselect checkboxes
+			var checkbox = $('table tbody input[type="checkbox"]');
+			$("#selectAll").click(function () {
+				if (this.checked) {
+					checkbox.each(function () {
+						this.checked = true;
+					});
+				} else {
+					checkbox.each(function () {
+						this.checked = false;
+					});
+				}
+			});
+			checkbox.click(function () {
+				if (!this.checked) {
+					$("#selectAll").prop("checked", false);
+				}
+			});
+			//***************update form*********************
+
+
+
+			var currentRow;
+			var idd;
+			$(document).on("click", ".edit", function () {
+
+				currentRow = $(this).closest("tr");
+				idd = currentRow.find("#checkbox1").val();
+
+				var photo = currentRow.find("td:eq(1) img").attr("src");
+				var name = currentRow.find("td:eq(2)").text();
+				var description = currentRow.find("td:eq(3)").text();
+				var price = currentRow.find("td:eq(4)").text();
+				var star = currentRow.find("td:eq(5)").text();
+				var menuId = currentRow.find("td:eq(6)").text();
+
+				$("#idd").val(idd);
+				$("#FoodM").val(menuId);
+				$("#Name").val(name);
+				$("#Star").val(star);
+				$("#Price").val(price);
+				$("#Description").val(description);
+				$("#LastPhoto").attr("src", photo);
+
+				$('#editEmployeeModal').modal('show');
+			});
+
+			$("#editcard").submit(function (e) {
+				e.preventDefault();
+
+				var formData = new FormData(this);
+
+			
+				
+				formData.append("Id", idd);
+
+				$.ajax({
+					contentType: false,
+					data: formData,
+					dataType: "json",
+					processData: false,
+					type: 'POST',
+					url: "@Url.Action("UpdateFood","Admin")",
+					complete: function NewRow() {
+						alert('ویرایش با موفقیت انجام شد.');
+
+						currentRow.find("#checkbox1").val($("#idd").val());
+						currentRow.find("td:eq(2)").text($("#Name").val());
+						currentRow.find("td:eq(3)").text($("#Description").val());
+						currentRow.find("td:eq(4)").text($("#Price").val());
+						currentRow.find("td:eq(5)").text($("#Star").val());
+				
+							var imgSrc = $('.dropify-render img').attr('src');
+							
+							$('#imagePreview').attr('src', imgSrc);
+					
+					},
+					error: function (xhr, status, error) {
+						console.log(xhr.responseText);
+					}
+				});
+			});
+		});
+    </script>
+	<script>
+		function submitForm(button) {
+			var menuId = button.dataset.menuId;
+			
+			$.ajax({
+				url: '/Home/GetFoodsByMenuId',
+				type: 'POST',
+				data: { menuId: menuId },
+				success: function (data) {
+					var html = '<table id="table-container" class="table table-striped table-hover">';
+					html += '<thead>';
+					html += '<tr>';
+					html += '<th>';
+					html += '<span class="custom-checkbox">';
+					html += '<input type="checkbox" id="selectAll">';
+					html += '<label for="selectAll"></label>';
+					html += '</span>';
+					html += '</th>';
+					html += '<th>عکس</th>';
+					html += '<th>نام غذا</th>';
+					html += '<th>توضیحات</th>';
+					html += '<th>قیمت</th>';
+					html += '<th>امتیاز</th>';
+					html += '<th>حذف / ویرایش</th>';
+					html += '</tr>';
+					html += '</thead>';
+					html += '<tbody>';
+					data.forEach(function (item) {
+						html += '<tr>';
+						html += '<td>';
+						html += '<span class="custom-checkbox">';
+						html += '<input type="checkbox" id="checkbox1" name="options[]" value="' + item.id + '">';
+						html += '<label for="checkbox1"></label>';
+						html += '</span>';
+						html += '</td>';
+						html += '<td><img id="imagePreview" src="' + item.photo + '" style="object-fit: cover;width:70px;height:40px;"></td>';
+						html += '<td>' + item.name + '</td>';
+						html += '<td>' + item.description + '</td>';
+						html += '<td>' + item.price + '</td>';
+						html += '<td>' + item.star + '</td>';
+						html += '<td hidden>' + item.Menuid + '</td>';
+						html += '<td>';
+						html += '<a href="#editEmployeeModal" class="edit" id="editt" data-toggle="modal"><i class="fa-light fa-pen-to-square"></i></a>';
+						html += '<a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="fa-solid fa-trash-can"></i></a>';
+						html += '</td>';
+						html += '</tr>';
+					});
+
+					html += '</tbody>';
+					html += '</table>';
+
+					$('#table-container').html(html);
+				},
+				error: function (xhr, status, error) {
+					console.error(error);
+				}
+			});
+		}
+	</script>
+
+<script>
+		$(document).ready(function () {
+			$('.Menus').change(function () {
+				var selectedMenuIds = $('.Menus option:selected').map(function () {
+					return $(this).val();
+				}).get();
+				$('#FoodM').val(selectedMenuIds.join(','));
+			});
+		});
+</script>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/js/dropify.js">
+	
+	</script><script>
+		$(document).ready(function () {
+			$('.dropify').dropify();
+		});
+	</script>
+}

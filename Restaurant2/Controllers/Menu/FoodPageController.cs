@@ -10,7 +10,7 @@ namespace Restaurant2.Controllers.Menu
         public async Task<IActionResult> Index(int id)
         {
             blFood blFood = new blFood();
-            Food Food = await blFood.GetFoodsById(id);
+            Food Food = await blFood.GetFoodById(id);
             if (Food != null)
             {
                

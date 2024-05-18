@@ -27,13 +27,15 @@ namespace DAL
                 Name = cb.Name,
                 Description = cb.Description,
                 Photo = cb.Photo,
-                Price = cb.Price
+                Star = cb.Star,
+                Price = cb.Price,
+                MenuId = cb.MenuId
 
             })
                 .ToListAsync();
             return Foods;
         }
-        public async Task<Food> GetFoodsById(int Id)
+        public async Task<Food> GetFoodById(int Id)
         {
             var q = from i in db.Foods where Id == i.Id select i;
 

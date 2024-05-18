@@ -5,8 +5,8 @@
 /**
  * copyright 2022 codewithsadee
  */
-@import url('../../fontawesome-pro-6.5.0-web/css/all.min.css');
-@import url('../../fontawesome-pro-6.5.0-web/css/all.css');
+
+@import url('../../fontawesome.pro.6.5.2/fontawesome.pro.6.5.2/css/all.css');
 
 @font-face {
     font-family: 'iransansx-medium';
@@ -1086,51 +1086,6 @@ body.nav-active { overflow: hidden; }
 
 
 
-.theme-popup {
-    background:hsla(0, 0%, 100%, 0.2);
-    border:solid 1px hsla(0, 0%, 100%, 1);
-    border-radius: 6px ;
-    padding:5px;
-    position: relative;
-    display: inline-block;
-}
-
-.theme-popup__button {
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-}
-
-.theme-popup__list-container {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    display: none;
-    z-index: 1;
-}
-
-.theme-popup__list {
-    list-style-type: none;
-    width:123px;
-    padding: 0;
-    margin: 0;
-    background-color: hsla(0, 0%, 100%, 0.2);
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-    .theme-popup__list li {
-        padding: 8px 12px;
-    }
-
-        .theme-popup__list li:hover {
-            background-color: #fff6;
-        }
-
-.theme-popup__icons {
-    margin-right: 8px;
-}
 /*-----------------------------------*\
   #MENU
 \*-----------------------------------*/
@@ -2269,3 +2224,58 @@ textarea.input-field {
   }
 
 }
+/* استایل دکمه ورود به اکانت */
+
+.theme-popup {
+    background: hsla(0, 0%, 100%, 0.2);
+    border: solid 1px hsla(0, 0%, 100%, 1);
+    border-radius: 6px;
+    padding: 5px;
+    position: relative;
+    display: inline-block;
+}
+
+.theme-popup__button {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.theme-popup__list-container {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    display: none;
+    z-index: 1;
+}
+
+.theme-popup__list {
+    list-style-type: none;
+    width: 147px;
+    padding: 0;
+    margin: 0;
+    background-color: hsla(0, 0%, 100%, 0.2);
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+    .theme-popup__list li {
+        padding: 8px 12px;
+    }
+
+        .theme-popup__list li:hover {
+            background-color: #fff6;
+        }
+
+.theme-popup__icons {
+    margin-right: 8px;
+}
+.theme-popup__button {
+    display: flex;
+    align-items: center;
+}
+
+    .theme-popup__button .theme-popup__icons {
+        margin-right: 5px; 
+    }

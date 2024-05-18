@@ -3,7 +3,7 @@ using BLL;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Restaurant2.Models;
-
+using Microsoft.AspNetCore.Http;
 namespace Restaurant2.Controllers.Users
 {
     [Authorize(Roles ="admin")]
@@ -55,8 +55,19 @@ namespace Restaurant2.Controllers.Users
             BE.Food f = new BE.Food();
             f.Name = food.Name;
             f.Description = food.Description;
-            f.Price = food.Price;
-            f.Star = food.Star;
+
+			if (int.TryParse(food.Price, out int price))
+			{
+				f.Price = price;
+			}
+			else
+			{
+				
+				 ModelState.AddModelError("Price", "فرمت قیمت معتبر نیست");
+			
+				f.Price = 0; 
+			}
+			f.Star = food.Star;
             f.MenuId = food.MenuId;     
             UploadFile upf = new UploadFile(environment);
             if (food.Photo != null)
@@ -69,7 +80,7 @@ namespace Restaurant2.Controllers.Users
 	
 
 		[HttpGet]
-        public async Task<IActionResult> ManageFood(int menuId)
+        public async Task<IActionResult> ManageMenu(int menuId)
         {
 			BLL.blMenu blm = new BLL.blMenu();
 			ViewBag.Menus = await blm.ReadAsync();
@@ -82,143 +93,45 @@ namespace Restaurant2.Controllers.Users
 				menuId = 2;
 				ViewBag.Firstfoods = await _blf.GetFoodsByMenuId(menuId);
 			}
-			blFood blFood = new blFood();
-            var data = await blFood.ReadAsync();
-            var model = data.ToList();
-            return View(model);
+
+            return View();
         }
         [HttpPost]
-        public IActionResult ManageFood(Models.Food b)
-        {
-            blFood blFood = new blFood();
-            BE.Food Food = new BE.Food();
-            Food.Id = b.Id;
-            Food.Name = b.Name;
-            Food.Price = b.Price;
-            Food.Description = b.Description;
-            Food.Star = b.Star;
-            Food.MenuId = b.MenuId;
-            if (b.Photo != null)
-            {
-                UploadFile upf = new UploadFile(environment);
-                Food.Photo = upf.Upload(b.Photo);
-            }
-			_blf.ManageFood(Food);
-            return RedirectToAction("ManageFood", "Admin");
-        }
-
-        //[HttpGet]
-        //public ActionResult Blog(int id)
-        //{
-        //    blFood blFood = new blFood();
-        //    Food? blog = new Food();
-        //    blog = blFood.SearchById(id);
-        //    if (blog != null)
-        //    {
-        //        ViewBag.FoodTopics = blog.FoodTopics;
-        //        ViewBag.Blogger = blog.Blogger;
-        //        ViewBag.BlogContinuations = blog.BlogContinuations;
-        //        return View(blog);
-        //    }
-        //    return View(blog);
-        //}
-        //[HttpGet]
-        //public async Task<IActionResult> Show()
-        //{
-        //    blFood blFood = new blFood();
-        //    var data = await blFood.ReadAsync();
-        //    var model = data.ToList();
-        //    return View(model);
-        //}
-        //[HttpGet]
-        //public async Task<IActionResult> Create()
-        //{
-        //    blBlogger blBlogger = new blBlogger();
-        //    var data = await blBlogger.ReadAsync();
-        //    ViewBag.Bloggers = data.ToList();
-
-        //    blTopic topic = new blTopic();
-        //    var topics = await topic.ReadAsync();
-        //    ViewBag.Topics = topics.ToList();
-
-        //    return View();
-        //}
-        //[HttpPost]
-        //public IActionResult Create(Models.Blog.Food b)
-        //{
-        //    blFood blcard = new blFood();
-        //    Food card = new Food();
-        //    card.Title = b.Title;
-        //    card.Description = b.Description;
-        //    card.Subtitle = b.Subtitle;
-        //    card.Views = b.Views;
-        //    if (b.TopicFoods != null)
-        //    {
-        //        foreach (var id in b.TopicFoods)
-        //        {
-        //            var topicFood = new FoodTopic
-        //            {
-        //                TopicId = id,
-        //                FoodId = card.Id
-        //            };
-
-        //            card.FoodTopics.Add(topicFood);
-        //        }
-        //    }
-
-        //    card.BloggerId = b.BloggerId;
-        //    card.DateTime = DateTime.Now;
-        //    UploadFile upf = new UploadFile(environment);
-        //    if (b.Photo != null)
-        //    {
-        //        card.Photo = upf.Upload(b.Photo);
-        //    }
-        //    blcard.Create(card);
-        //    return RedirectToAction("Index", "Admin");
-        //}
-        //[HttpPost]
-        //public void Update(Models.Blog.Food b)
-        //{
-        //    blFood blcard = new blFood();
-        //    Food Food = new Food();
-        //    Food.Id = b.Id;
-        //    Food.Title = b.Title;
-        //    Food.Description = b.Description;
-        //    Food.Subtitle = b.Subtitle;
-        //    Food.Views = b.Views;
-        //    if (b.Photo != null)
-        //    {
-        //        UploadFile upf = new UploadFile(environment);
-        //        Food.Photo = upf.Upload(b.Photo);
-        //    }
-        //    blcard.Update(Food);
-        //}
-        //[HttpPost]
-
-        //public async Task<ActionResult> IncrementViews(Food Food)
-        //{
-        //    blFood blcard = new blFood();
-        //    int cardId = Food.Id;
-        //    await blcard.ViewAdder(cardId);
-        //    return Json(new { success = true });
-        //}
-
-
-
-        //public async Task<IActionResult> Edit(int Id)
-        //{
-        //    blFood blFood = new blFood();
-        //    var card = blFood.SearchById(Id);
-
-        //    blBlogger blBlogger = new blBlogger();
-        //    var data = await blBlogger.ReadAsync();
-        //    ViewBag.Bloggers = data.ToList();
-
-        //    blTopic topic = new blTopic();
-        //    var topics = await topic.ReadAsync();
-        //    ViewBag.Topics = topics.ToList();
-
-        //    return View(card);
-        //}
-    }
+		public async Task<IActionResult> UpdateFood(Models.Food b)
+		{
+			blFood blFood = new blFood();
+			BE.Food Food = new BE.Food();
+			UploadFile upf = new UploadFile(environment);
+			Food.Id = b.Id;
+			Food.Name = b.Name;
+			if (int.TryParse(b.Price, out int price))
+			{
+				Food.Price = price;
+			}
+			else
+			{
+				
+			 ModelState.AddModelError("Price", "فرمت قیمت معتبر نیست");
+				
+				Food.Price = 0; 
+			}
+			Food.Description = b.Description;
+			Food.Star = b.Star;
+			Food.MenuId = b.MenuId;
+			if (b.Photo != null)
+			{			
+				Food.Photo = upf.Upload(b.Photo);
+			}
+			else
+			{	
+				BE.Food lastFood = new BE.Food();
+				lastFood = await blFood.GetFoodById(Food.Id);
+				if (lastFood.Photo!=null)
+				{
+					var photoBytes = Convert.FromBase64String(lastFood.Photo);
+				}				
+			}
+			return RedirectToAction("ManageFood", "Admin");
+		}
+	}
 }
