@@ -643,10 +643,10 @@ table.table .avatar {
     padding: 0 !important;
     width: 120px !important;
 }
-.chips input:focus,
-.chips input:valid {
-        outline: 0;
-        border-bottom-color: lightblue;
+.input-search:focus,
+.input-search input:valid {
+    outline: 0;
+    border-bottom-color: lightblue;
 }
 .input-field {
 

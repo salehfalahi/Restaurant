@@ -38,18 +38,6 @@ namespace Restaurant2.Controllers.Users
 			return RedirectToAction("Index", "Admin");
 		}
 
-
-
-		//[HttpGet]
-		//public async Task<IActionResult> CreateFood()
-		//{
-		//    blMenu blMenu = new blMenu();
-		//    var data = await blMenu.ReadAsync();
-		//    ViewBag.Menus = data.ToList();
-		//    return View();
-		//}
-
-
 		[HttpPost]
 		public IActionResult CreateFood(Models.Food food)
 		{
@@ -82,39 +70,37 @@ namespace Restaurant2.Controllers.Users
 
 
 		[HttpGet]
-		public async Task<IActionResult> ManageMenu(int menuId)
+		public async Task<IActionResult> ManageMenu(int menuId, int page = 1, int pageSize = 10)
 		{
 			BLL.blMenu blm = new BLL.blMenu();
 			ViewBag.Menus = await blm.ReadAsync();
 
-			if (menuId > 1)
+			if (menuId <= 1)
 			{
-				var foods = await _blf.GetFoodsByMenuId(menuId);
-				if (foods != null)
-				{
-					ViewBag.Firstfoods = foods;
-				}
-				else
-				{
-					ViewBag.Firstfoods = new List<BE.Food>();
-				}
+				menuId = 2;
+			}
+
+			var foods = await _blf.GetFoodsByMenuId(menuId);
+			if (foods != null)
+			{
+				int totalFoods = foods.Count();
+				var pagedFoods = foods.Skip((page - 1) * pageSize).Take(pageSize).ToList();
+				ViewBag.Firstfoods = pagedFoods;
+				ViewBag.TotalFoods = totalFoods;
+				ViewBag.PageSize = pageSize;
+				ViewBag.CurrentPage = page;
 			}
 			else
 			{
-				menuId = 2;
-				var foods = await _blf.GetFoodsByMenuId(menuId);
-				if (foods != null)
-				{
-					ViewBag.Firstfoods = foods;
-				}
-				else
-				{
-					ViewBag.Firstfoods = new List<BE.Food>();
-				}
+				ViewBag.Firstfoods = new List<BE.Food>();
+				ViewBag.TotalFoods = 0;
+				ViewBag.PageSize = pageSize;
+				ViewBag.CurrentPage = page;
 			}
 
 			return View();
 		}
+
 
 		[HttpPost]
 		public async Task<IActionResult> UpdateFood(Models.Food b)

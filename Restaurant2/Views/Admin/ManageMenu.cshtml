@@ -5,18 +5,27 @@
 }
 @section preDashboard{
  <link href="~/css/dropify.css" rel="stylesheet" />
+	<style>
+		::placeholder {
+			color: #DCDCDC;
+			opacity: 1;
+		}
 
+		::-ms-input-placeholder {
+			color: #DCDCDC;
+		}
+	</style>
 }
 <div class="table-wrapper">
 	<div class="table-title">
 		<div class="row">
 			<div class="col-sm-6">
-				<!-- بخش مدیریت غذاها در سمت چپ -->
+	
 				<h2>مدیریت <b>غذاها</b></h2>
 			</div>
 		</div>
 		<div class="row text-right">
-			<!-- بخش فیلتر منو در سمت راست -->
+		
 			<form asp-action="GetFoodsByMenuId" asp-controller="Menu" method="post">
 				<label style="margin-bottom: 10px;margin-left: 5px; font-size: 18px;">:فیلتر منو</label>
 				<div class="row" style="display: flex; flex-wrap: wrap; justify-content: flex-end;">
@@ -136,19 +145,24 @@
 	</tbody>
 </table>
 	<div class="clearfix">
-		<div class="hint-text">Showing <b>5</b> out of <b>25</b> entries</div>
+		<div class="hint-text">دیدن لیست  <b>@ViewBag.CurrentPage</b> از <b>@Math.Ceiling((double)ViewBag.TotalFoods / ViewBag.PageSize)</b> لیست</div>
 		<ul class="pagination">
-			<li class="page-item disabled"><a href="#">Previous</a></li>
-			<li class="page-item"><a href="#" class="page-link">1</a></li>
-			<li class="page-item"><a href="#" class="page-link">2</a></li>
-			<li class="page-item active"><a href="#" class="page-link">3</a></li>
-			<li class="page-item"><a href="#" class="page-link">4</a></li>
-			<li class="page-item"><a href="#" class="page-link">5</a></li>
-			<li class="page-item"><a href="#" class="page-link">Next</a></li>
+			<li class="page-item @(ViewBag.CurrentPage == 1 ? "disabled" : "")">
+				<a href="@Url.Action("ManageMenu", new { menuId = ViewBag.MenuId, page = ViewBag.CurrentPage - 1 })" class="page-link">صفحه قبلی</a>
+			</li>
+			@for (int i = 1; i <= Math.Ceiling((double)ViewBag.TotalFoods / ViewBag.PageSize); i++)
+			{
+				<li class="page-item @(ViewBag.CurrentPage == i ? "active" : "")">
+					<a href="@Url.Action("ManageMenu", new { menuId = ViewBag.MenuId, page = i })" class="page-link">@i</a>
+				</li>
+			}
+			<li class="page-item @(ViewBag.CurrentPage == Math.Ceiling((double)ViewBag.TotalFoods / ViewBag.PageSize) ? "disabled" : "")">
+				<a href="@Url.Action("ManageMenu", new { menuId = ViewBag.MenuId, page = ViewBag.CurrentPage + 1 })" class="page-link">صفحه بعدی</a>
+			</li>
 		</ul>
 	</div>
 </div>
-<!-- Edit Modal HTML -->
+<!-- CreateFood Modal HTML -->
 <div id="addEmployeeModal" class="modal fade">
 	<div class="modal-dialog">
 		<div class="modal-content">
@@ -162,7 +176,7 @@
 					<div class="panel-body">
 
 						<form asp-action="CreateFood" asp-controller="Admin" method="post" enctype="multipart/form-data" class="form-horizontal" role="form">
-							<input type="hidden" name="FoodMenuId" id="FoodM" />
+							<input type="hidden" name="MenuId" id="FoodM" />
 
 
 							<div class="form-group">

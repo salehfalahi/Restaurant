@@ -20,7 +20,7 @@ namespace DAL
         public async Task<List<Food>> GetFoodsByMenuId(int menuId)
         {
             var Foods = await db.Foods
-            .Where(cb => cb.MenuId == menuId)
+            .Where(cb => cb.MenuId == menuId && cb.Delete == true)
             .Select(cb => new Food
             {
                 Id = cb.Id,
