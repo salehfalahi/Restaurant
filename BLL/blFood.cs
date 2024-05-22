@@ -29,6 +29,11 @@ namespace BLL
         {
             daFood Food = new daFood();
             return await Food.ReadAsync();
+        }  
+        public async Task<List<Food>> GetFoodsByName(List<string>tag)
+        {
+            daFood Food = new daFood();
+            return await Food.GetFoodsByName(tag);
         }
 
         public void ManageFood(Food m)

@@ -4,7 +4,8 @@
     Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
 }
 @section preDashboard{
-    <link href="~/css/dropify.css" rel="stylesheet" />
+ <link href="~/css/dropify.css" rel="stylesheet" />
+
 }
 <div class="table-wrapper">
 	<div class="table-title">
@@ -13,11 +14,14 @@
 				<!-- بخش مدیریت غذاها در سمت چپ -->
 				<h2>مدیریت <b>غذاها</b></h2>
 			</div>
-			<div class="col-sm-6 text-right">
-				<!-- بخش فیلتر منو در سمت راست -->
-				<form asp-action="GetFoodsByMenuId" asp-controller="Menu" method="post">
-					<label style="margin-bottom: 10px;margin-left: 5px; font-size: 18px;">:فیلتر منو</label>
-					<div class="row" style="display: flex; flex-wrap: wrap;">
+		</div>
+		<div class="row text-right">
+			<!-- بخش فیلتر منو در سمت راست -->
+			<form asp-action="GetFoodsByMenuId" asp-controller="Menu" method="post">
+				<label style="margin-bottom: 10px;margin-left: 5px; font-size: 18px;">:فیلتر منو</label>
+				<div class="row" style="display: flex; flex-wrap: wrap; justify-content: flex-end;">
+					@if (ViewBag.Menus!=null)
+					{
 						@foreach (var item in ViewBag.Menus)
 						{
 							<button class="btn btn-primary active mr-3 mb-3"
@@ -29,12 +33,24 @@
 								<span class="text text-1">@item.Name</span>
 							</button>
 						}
-					</div>					
-				</form>
-			</div>
+					}
+					
+				</div>
+			</form>
+
 		</div>
-		<div class="row">
-			<div class="col-sm-12">
+		<div class="row" style="display: flex; flex-wrap: wrap; justify-content: flex-end;">
+		
+			<div class="col-sm-6">
+				
+				<div class="chips input-field"  data-index="0" data-initialized="true">
+					<input class="input-search" id="a389bb99-d91a-ee47-9719-f03da013f1b0" placeholder="..جستجو غذا ">
+				</div>
+			</div>
+			
+		</div>
+		<div class="row" style="display: flex; flex-wrap: wrap; justify-content: flex-end;">
+			<div class="col-sm-6">
 				
 				<div class="text-center">
 					<a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal"><i class="fa-solid fa-plus"></i> <span>افزودن</span></a>
@@ -61,31 +77,62 @@
 			</tr>
 		</thead>
 		<tbody>	
+			@if (ViewBag.Firstfoods!=null)
+			{
 				@foreach (var item in ViewBag.Firstfoods)
 				{
-				int i = 1;
-				<tr>
-					<td>
-						<span class="custom-checkbox">
-							<input type="checkbox" id="checkbox @i" name="options[]" value="@item.Id">
-							<label for="checkbox1"></label>
-						</span>
-					</td>
+					int i = 1;
+					<tr>
+						<td>
+							<span class="custom-checkbox">
+								<input type="checkbox" id="checkbox @i" name="options[]" value="@item.Id">
+								<label for="checkbox1"></label>
+							</span>
+						</td>
 
-					<td><img id="imagePreview" src="@item.Photo" style="object-fit: cover;width:70px;height:40px;"></td>
-					<td>@item.Name</td>
-					<td>@item.Description</td>
-					<td>@item.Price.ToString("N0")</td>
-					<td>@item.Star</td>
-					<td hidden>@item.MenuId</td>
+						<td><img id="imagePreview" src="@item.Photo" style="object-fit: cover;width:70px;height:40px;"></td>
+						<td>@item.Name</td>
+						<td>@item.Description</td>
+						<td>@item.Price.ToString("N0")</td>
+						<td>@item.Star</td>
+						<td hidden>@item.MenuId</td>
 
-					<td>
-						<a href="#editEmployeeModal" class="edit" id="editt" data-toggle="modal"><i class="fa-light fa-pen-to-square"></i></a>
-						<a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="fa-solid fa-trash-can"></i></a>
-					</td>
-				</tr>
-				i++;
+						<td>
+							<a href="#editEmployeeModal" class="edit" id="editt" data-toggle="modal"><i class="fa-light fa-pen-to-square"></i></a>
+							<a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="fa-solid fa-trash-can"></i></a>
+						</td>
+					</tr>
+					i++;
 				}
+			}else
+			{
+				@foreach (var item in Model)
+				{
+					int i = 1;
+					<tr>
+						<td>
+							<span class="custom-checkbox">
+								<input type="checkbox" id="checkbox @i" name="options[]" value="@item.Id">
+								<label for="checkbox1"></label>
+							</span>
+						</td>
+
+						<td><img id="imagePreview" src="@item.Photo" style="object-fit: cover;width:70px;height:40px;"></td>
+						<td>@item.Name</td>
+						<td>@item.Description</td>
+						<td>@item.Price.ToString("N0")</td>
+						<td>@item.Star</td>
+						<td hidden>@item.MenuId</td>
+
+						<td>
+							<a href="#editEmployeeModal" class="edit" id="editt" data-toggle="modal"><i class="fa-light fa-pen-to-square"></i></a>
+							<a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="fa-solid fa-trash-can"></i></a>
+						</td>
+					</tr>
+					i++;
+				}
+			}
+			
 	</tbody>
 </table>
 	<div class="clearfix">
@@ -107,7 +154,7 @@
 		<div class="modal-content">
 			
 				<div class="modal-header">
-				<h4 class="modal-title">ثبت منو</h4>
+				<h4 class="modal-title">ثبت غذا</h4>
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 				</div>
 				<section class="panel panel-default">
@@ -133,12 +180,12 @@
 							</div>
 							<div class="form-group">
 
-								<div class="col-sm-6">
+								<div class="col-sm-4">
 									<label class="control-label small" for="file_img">قیمت</label>
 									<input type="number" class="form-control" name="Price" aria-required="true" placeholder="تومان">
 
 								</div>
-								<div class="col-sm-6">
+								<div class="col-sm-4">
 									<label class="control-label small" for="file_img">ستاره</label>
 									<input type="number" class="form-control" name="Star" min="0" max="5" aria-required="true" placeholder="بین 0 تا 5">
 								</div>
@@ -155,10 +202,14 @@
 								<label for="tech" class="col-sm-3 control-label">انتخاب منو</label>
 								<div class="col-sm-4">
 									<select class="form-control Menus" multiple>
+									@if (ViewBag.Menus!=null)
+									{
 										@foreach (BE.Menu item in ViewBag.Menus)
 										{
 											<option value="@item.Id">@item.Name</option>
 										}
+									}
+										
 									</select>
 
 								</div>
@@ -417,9 +468,38 @@
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/js/dropify.js">
 	
-	</script><script>
+	</script>
+	<script>
 		$(document).ready(function () {
 			$('.dropify').dropify();
+		});
+	</script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="~/js/ui-chips.js"></script>
+
+	<script>
+		$(document).ready(function () {
+			$('.input-search').keydown(function (e) {
+				// بررسی کنید که آیا کلید Enter فشرده شده است
+				if (e.which == 13) {
+					e.preventDefault(); // جلوگیری از رفتار پیش‌فرض (مثل ارسال فرم)
+					var url = '@Url.Action("JsonSearch", "Admin")';
+					console.log("Generated URL: ");  // چاپ URL در کنسول برای بررسی
+					$.ajax({
+						dataType: "json",
+						contentType: "application/json;charset=utf-8",
+						url: url,
+						success: function (data) {
+							var chipsData = JSON.stringify(M.Chips.getInstance($('.chips')).chipsData);
+							console.log("Chips Data: " + chipsData);  // چاپ داده‌های chips در کنسول
+							window.location = data.redirect + "?" + 's=' + chipsData;
+						},
+						error: function (xhr, status, error) {
+							console.error("Error occurred: " + status + " - " + error);
+						}
+					});
+				}
+			});
 		});
 	</script>
 }

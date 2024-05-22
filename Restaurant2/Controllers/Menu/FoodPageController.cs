@@ -13,13 +13,10 @@ namespace Restaurant2.Controllers.Menu
             Food Food = await blFood.GetFoodById(id);
             if (Food != null)
             {
-               
                 return View(Food);
             }
             return View();
         }
-
-        
-
+       
     }
 }

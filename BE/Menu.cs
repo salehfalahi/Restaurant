@@ -35,8 +35,11 @@ namespace BE
         public string? Description { get; set; }
         public string? Photo { get; set; }
         public int Price { get; set; }
+        public int? SpecialPrice { get; set; }
         public float? Star { get; set; }
+        public bool IsSpecial { get; set; }
 
+        public bool Delete { get; set; } = true;
 
         [ForeignKey("MenuId")] 
         public int MenuId { get; set; }
@@ -47,6 +50,8 @@ namespace BE
         public FoodHistory? FoodHistory { get; set; }
 
         public List<Comment> Comments { get; set; } = new List<Comment>();
+
+ 
     }
     public class Order
     {
@@ -89,7 +94,6 @@ namespace BE
         public int RecipeWriterId { get; set; }
         public AppUser User { get; set; }
 
-      
         public List<Comment> Comments { get; set; } = new List<Comment>();
         public string Description { get; set; }
         public string Text { get; set; }

@@ -4,6 +4,7 @@ using DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DAL.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240518174237_addDeleteForFood")]
+    partial class addDeleteForFood
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -198,9 +201,6 @@ namespace DAL.Migrations
                     b.Property<int>("FoodHistoryId")
                         .HasColumnType("int");
 
-                    b.Property<bool>("IsSpecial")
-                        .HasColumnType("bit");
-
                     b.Property<int>("MenuId")
                         .HasColumnType("int");
 
@@ -215,9 +215,6 @@ namespace DAL.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Price")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("SpecialPrice")
                         .HasColumnType("int");
 
                     b.Property<float?>("Star")
@@ -424,19 +421,19 @@ namespace DAL.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "e0238b72-e45e-4b41-baaf-9d74fc2f03a1",
+                            Id = "ab9ee05e-3648-423d-850e-445d53dac123",
                             Name = "manager",
                             NormalizedName = "manager"
                         },
                         new
                         {
-                            Id = "04054fc7-29c3-4473-990d-713ad95c85b0",
+                            Id = "9a682299-b8dc-4613-b5c5-7035ae65784f",
                             Name = "admin",
                             NormalizedName = "admin"
                         },
                         new
                         {
-                            Id = "d2e57a10-b707-42c8-a134-98a1904c1aae",
+                            Id = "1833178b-1ed4-4494-b177-7fa23c978277",
                             Name = "customer",
                             NormalizedName = "customer"
                         });

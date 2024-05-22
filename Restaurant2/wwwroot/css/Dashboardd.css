@@ -628,3 +628,55 @@ table.table .avatar {
 .modal form label {
     font-weight: normal;
 }
+
+/* سرچباکس*/
+.chips input {
+    background: none;
+    border: 0;
+    color:#f5f5f5;
+    display: inline-block;
+    font-size: 16px;
+    height: 3rem;
+    line-height: 32px;
+    outline: 0;
+    margin: 0;
+    padding: 0 !important;
+    width: 120px !important;
+}
+.chips input:focus,
+.chips input:valid {
+        outline: 0;
+        border-bottom-color: lightblue;
+}
+.input-field {
+
+    position: relative;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+.chips {
+    text-align: end;
+    border: none;
+    border-bottom: 1px solid #9e9e9e;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    margin: 0 0 8px 0;
+    min-height: 45px;
+    outline: none;
+    -webkit-transition: all .3s;
+    transition: all .3s;
+}
+.chip {
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 32px;
+    display: inline-block;
+    height: 32px;
+    margin-bottom: 5px;
+    margin-left: 5px;
+    padding: 0 12px;
+    color: rgba(0, 0, 0, .6);
+    border-radius: 16px;
+    background-color: #e4e4e4;
+    position: relative;
+}
