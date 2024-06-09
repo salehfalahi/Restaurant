@@ -447,7 +447,7 @@
 						html += '<td><img id="imagePreview" src="' + item.photo + '" style="object-fit: cover;width:70px;height:40px;"></td>';
 						html += '<td>' + item.name + '</td>';
 						html += '<td>' + item.description + '</td>';
-						html += '<td>' + item.price + '</td>';
+						html += '<td>' + item.price.toLocaleString() + '</td>';
 						html += '<td>' + item.star + '</td>';
 						html += '<td hidden>' + item.Menuid + '</td>';
 						html += '<td>';

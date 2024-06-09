@@ -13,9 +13,8 @@
     <div class="pop-up-container-vertical">
         <img src="./assets/images/shape-2.png" width="343" height="345" loading="lazy" alt="shape" class="shape shape-2 move-anim">
     <div class="pop-up-wrapper">
-        <div class="go-back" onclick="GoBack();">
-
-                <i class="fa-solid fa-arrow-left" style="color:#191919;"></i>
+        <div class="go-back" >
+                <i class="fa fa-arrow-left" style="position: relative; height: 35px;  width: 40px;  font-weight: 900; bottom: 60px;color: #191919;"></i>       
         </div>
         <div class="product-details">
             <div class="product-left">
@@ -115,9 +114,7 @@
         CalcPrice(0);
 
     }
-    function GoBack() {
-        $(".lightbox-blanket").toggle();
-    }
+ 
 
     //Calculate new total when the quantity changes.
         function CalcPrice(qty) {
