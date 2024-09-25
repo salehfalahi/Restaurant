@@ -13,9 +13,11 @@
     <div class="pop-up-container-vertical">
         <img src="./assets/images/shape-2.png" width="343" height="345" loading="lazy" alt="shape" class="shape shape-2 move-anim">
     <div class="pop-up-wrapper">
-        <div class="go-back" >
-                <i class="fa fa-arrow-left" style="position: relative; height: 35px;  width: 40px;  font-weight: 900; bottom: 60px;color: #191919;"></i>       
-        </div>
+          <a href="/">   
+            <div class="go-back" >
+                <i  class="fa fa-arrow-left" style="position: relative; height: 35px;  width: 40px;  font-weight: 900; bottom: 60px;color: #191919;"></i>       
+            </div>
+          </a>
         <div class="product-details">
             <div class="product-left">
                 <div class="product-info">
@@ -155,7 +157,7 @@
         e.preventDefault();
         var qty = $("#product-quantity-input").val();
         if (qty === '0') { return; }
-            var toast = '<div class="toast toast-success"> .مورد اضافه شد' + qty + ' </div>';
+            var toast = '<div class="toast toast-success"> ' + qty + 'مورد اضافه شد' + ' </div>';
         $("body").append(toast);
         setTimeout(function () {
             $(".toast").addClass("toast-transition");

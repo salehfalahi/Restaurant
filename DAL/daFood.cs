@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -67,18 +68,20 @@ namespace DAL
             sp.MenuId = s.MenuId;
             db.SaveChanges();
         }
-		public async Task<List<Food>> GetFoodsByName(List<string> tags)
-		{
-            List<Food> Foods = new List<Food>();
-            foreach (var item in tags)
+        public async Task<List<Food>> GetFoodsByName(List<string> tags)
+        {
+            IQueryable<Food> query = db.Foods.AsQueryable();
+
+            foreach (var tag in tags)
             {
-				var q = from i in db.Foods where i.Name.Contains(item.ToString())|| i.Description.Contains(item.ToString())
-                        select i;
-                Foods=Foods.Concat(q.ToList()).ToList();
+                string currentTag = tag; 
+                query = query.Where(i => i.Name.Contains(currentTag) || i.Description.Contains(currentTag));
+            }
 
-			}
+            return await query.ToListAsync();
+        }
 
-			return Foods;
-		}
-	}
+
+
+    }
 }

@@ -155,10 +155,15 @@
     }
     else
     {
-        <ul class="menu-items">
+      @*   <ul class="menu-items">
             <li class="btn"><a id="register" asp-area="Identity" asp-page="/Account/Register">ثبت نام</a></li>
             <li class="btn"><a id="login" asp-area="Identity" asp-page="/Account/Login">ورود</a></li>
-        </ul>
+        </ul> *@
+    <select class="select-login" onchange="handleSelectChange(event)">
+        <option value="" selected disabled>عضویت</option>
+        <option value="/Identity/Account/Register">ثبت نام</option>
+        <option value="/Identity/Account/Login">ورود</option>
+    </select>
     }
 
 

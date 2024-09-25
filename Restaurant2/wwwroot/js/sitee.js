@@ -3,17 +3,17 @@
     const dateObject = datepickerDOM.persianDatepicker(
         {
             "inline": false,
-            "format": "LLLL",
+            "format": "YYYY/MM/DD",
             "viewMode": "day",
             "initialValue": true,
             "minDate": false,
             "maxDate": false,
             "autoClose": false,
             "position": "auto",
-            "altFormat": "lll",
+            "altFormat": "YYYY/MM/DD",
             "altField": "#altfieldExample",
             "onlyTimePicker": false,
-            "onlySelectOnDate": false,
+            "onlySelectOnDate": true, // انتخاب تنها روی تاریخ
             "calendarType": "persian",
             "inputDelay": 800,
             "observer": false,
@@ -62,25 +62,6 @@
                     "btnToday": "امروز"
                 }
             },
-            "timePicker": {
-                "enabled": false,
-                "step": 1,
-                "hour": {
-                    "enabled": false,
-                    "step": null
-                },
-                "minute": {
-                    "enabled": false,
-                    "step": null
-                },
-                "second": {
-                    "enabled": false,
-                    "step": null
-                },
-                "meridian": {
-                    "enabled": false
-                }
-            },
             "dayPicker": {
                 "enabled": true,
                 "titleFormat": "YYYY MMMM"
@@ -95,8 +76,7 @@
             },
             "responsive": true,
             "onSelect": function () {
-
-                alert(`تاریخ انتخاب شده : ${date.year}/${date.month}/${date.date} `);
+                alert(`تاریخ انتخاب شده : ${date.year}/${date.month}/${date.date}`);
             }
         });
 

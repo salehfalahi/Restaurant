@@ -51,12 +51,12 @@ namespace BE
 
         public List<Comment> Comments { get; set; } = new List<Comment>();
 
- 
     }
     public class Order
     {
         [Key]
         public int Id { get; set; }
+        public byte? Table { get; set; }
         public bool TakeOut { get; set; }
         public List<Food> Items { get; set; } = new List<Food>();
         [ForeignKey("OrderUserId")]

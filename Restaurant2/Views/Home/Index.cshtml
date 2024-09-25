@@ -1,7 +1,7 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
-
+<link href="~/css/persian-datepicker.min.css" rel="stylesheet" />
 
 <main>
     <article>
@@ -28,7 +28,7 @@
                     <p class="body-2 hero-text slider-reveal">
                         با خانواده بیایید و لذت غذاهای خوشمزه را تجربه کنید
                     </p>
-                    <a href="#" class="btn btn-primary slider-reveal">
+                    <a href="#menu" class="btn btn-primary slider-reveal">
                         <span class="text text-1">مشاهده منوی ما</span>
                         <span class="text text-2" aria-hidden="true">مشاهده منوی ما</span>
 
@@ -50,7 +50,7 @@
                     <p class="body-2 hero-text slider-reveal">
                         با خانواده بیایید و لذت غذاهای خوشمزه را تجربه کنید
                     </p>
-                    <a href="#" class="btn btn-primary slider-reveal">
+                    <a href="#menu" class="btn btn-primary slider-reveal">
                         <span class="text text-1">مشاهده منوی ما</span>
                         <span class="text text-2" aria-hidden="true">مشاهده منوی ما</span>
 
@@ -93,7 +93,7 @@
                 <ion-icon name="chevron-forward"></ion-icon>
             </button>
 
-            <a href="#" class="hero-btn has-after">
+            <a href="#reservation" class="hero-btn has-after">
                 <img src="./assets/images/hero-icon.png" width="48" height="48" alt="booking icon">
 
 
@@ -223,7 +223,7 @@
 
                     <div class="contact-label">رزرو تماسی</div>
 
-                    <a href="tel:+804001234567" class="body-1 contact-number hover-underline">+80 (400) 123 4567</a>
+                    <a href="tel:09108117122" class="body-1 contact-number hover-underline">09108117122</a>
 
                     <a href="#" class="btn btn-primary">
                         <span class="text text-1">بیشتر بخوانید</span>
@@ -341,11 +341,9 @@
                 </div>
 
                 <div class="profile">
-                    <img src="./assets/images/testi-avatar.jpg" width="100" height="100" loading="lazy" alt="Sam Jhonson"
+                    <img src="./assets/images/20240525_001342_399412470.jpg" width="100" height="100" loading="lazy" alt="صالح فلاحی"
                          class="img">
-
-
-                    <p class="label-2 profile-name">سام جانسون</p>
+                    <p class="label-2 profile-name">صالح فلاحی</p>
                 </div>
 
             </div>
@@ -364,17 +362,17 @@
 
                 <div class="form reservation-form bg-black-10">
 
-                    <form action="" class="form-left">
+                    <form id="reservation" action="" class="form-left">
 
                         <h2 class="headline-1 text-center">رزرو آنلاین</h2>
                         <p class="form-text text-center">
-                            درخواست رزرو <a href="tel:+88123123456" class="link">+88-123-123456</a>
+                            درخواست رزرو <a href="tel:09108117122" class="link">09108117122</a>
                             یا پر کردن فرم سفارش
                         </p>
                         <div class="input-wrapper">
-                            <input type="text" name="name" placeholder="Your Name" autocomplete="off" class="input-field">
+                            <input type="text" name="name" placeholder="نام شما" autocomplete="off" class="input-field">
 
-                            <input type="tel" name="phone" placeholder="Phone Number" autocomplete="off" class="input-field">
+                            <input type="tel" name="phone" placeholder="شماره تماس" autocomplete="off" class="input-field">
                         </div>
 
                         <div class="input-wrapper">
@@ -383,13 +381,13 @@
                                 <ion-icon name="person-outline" aria-hidden="true"></ion-icon>
 
                                 <select name="person" class="input-field">
-                                    <option value="1-person">1 Person</option>
-                                    <option value="2-person">2 Person</option>
-                                    <option value="3-person">3 Person</option>
-                                    <option value="4-person">4 Person</option>
-                                    <option value="5-person">5 Person</option>
-                                    <option value="6-person">6 Person</option>
-                                    <option value="7-person">7 Person</option>
+                                    <option value="1-person">1 نفر</option>
+                                    <option value="2-person">2 نفر</option>
+                                    <option value="3-person">3 نفر</option>
+                                    <option value="4-person">4 نفر</option>
+                                    <option value="5-person">5 نفر</option>
+                                    <option value="6-person">6 نفر</option>
+                                    <option value="7-person">7 نفر</option>
                                 </select>
 
                                 <ion-icon name="chevron-down" aria-hidden="true"></ion-icon>
@@ -398,8 +396,9 @@
                             <div class="icon-wrapper">
                                 <ion-icon name="calendar-clear-outline" aria-hidden="true"></ion-icon>
 
-                                <input type="date" name="reservation-date" class="input-field">
-
+                                
+                                <input class="input-field" type="text" name="persianDatapicker" id="persianDatapicker">
+                               
                                 <ion-icon name="chevron-down" aria-hidden="true"></ion-icon>
                             </div>
 
@@ -407,21 +406,21 @@
                                 <ion-icon name="time-outline" aria-hidden="true"></ion-icon>
 
                                 <select name="person" class="input-field">
-                                    <option value="08:00am">08 : 00 am</option>
-                                    <option value="09:00am">09 : 00 am</option>
-                                    <option value="010:00am">10 : 00 am</option>
-                                    <option value="011:00am">11 : 00 am</option>
-                                    <option value="012:00am">12 : 00 am</option>
-                                    <option value="01:00pm">01 : 00 pm</option>
-                                    <option value="02:00pm">02 : 00 pm</option>
-                                    <option value="03:00pm">03 : 00 pm</option>
-                                    <option value="04:00pm">04 : 00 pm</option>
-                                    <option value="05:00pm">05 : 00 pm</option>
-                                    <option value="06:00pm">06 : 00 pm</option>
-                                    <option value="07:00pm">07 : 00 pm</option>
-                                    <option value="08:00pm">08 : 00 pm</option>
-                                    <option value="09:00pm">09 : 00 pm</option>
-                                    <option value="10:00pm">10 : 00 pm</option>
+                                    <option value="08:00am">08 : 00 صبح</option>
+                                    <option value="09:00am">09 : 00 صبح</option>
+                                    <option value="010:00am">10 : 00 صبح</option>
+                                    <option value="011:00am">11 : 00 صبح</option>
+                                    <option value="012:00am">12 : 00 صبح</option>
+                                    <option value="01:00pm">01 : 00 ظهر</option>
+                                    <option value="02:00pm">02 : 00 ظهر</option>
+                                    <option value="03:00pm">03 : 00 ظهر</option>
+                                    <option value="04:00pm">04 : 00 ظهر</option>
+                                    <option value="05:00pm">05 : 00 ظهر</option>
+                                    <option value="06:00pm">06 : 00 ظهر</option>
+                                    <option value="07:00pm">07 : 00 شب</option>
+                                    <option value="08:00pm">08 : 00 شب</option>
+                                    <option value="09:00pm">09 : 00 شب</option>
+                                    <option value="10:00pm">10 : 00 شب</option>
                                 </select>
 
                                 <ion-icon name="chevron-down" aria-hidden="true"></ion-icon>
@@ -429,7 +428,7 @@
 
                         </div>
 
-                        <textarea name="message" placeholder="Message" autocomplete="off" class="input-field"></textarea>
+                        <textarea name="message" placeholder="توضیحات" autocomplete="off" class="input-field"></textarea>
 
                         <button type="submit" class="btn btn-secondary">
                             <span class="text text-1">رزرو میز</span>
@@ -445,13 +444,13 @@
 
                         <h2 class="headline-1 text-center">تماس با ما</h2>
                         <p class="contact-label">درخواست رزرو</p>
-                        <a href="tel:+88123123456" class="body-1 contact-number hover-underline">+۸۸-۱۲۳-۱۲۳۴۵۶</a>
+                        <a href="tel:09108117122" class="body-1 contact-number hover-underline">09108117122</a>
 
                         <div class="separator"></div>
                         <p class="contact-label">موقعیت</p>
                         <address class="body-4">
-                            خیابان رستوران، شهر لذیذ، <br>
-                            لندن 9578، انگلستان
+                            خیابان صدف <br>
+                            همدان 
                         </address>
                         <p class="contact-label">زمان ناهار</p>
                         <p class="body-4">
@@ -647,3 +646,6 @@
 </main>
 
 
+@section Scripts{
+
+}

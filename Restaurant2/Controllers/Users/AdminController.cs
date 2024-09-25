@@ -144,36 +144,46 @@ namespace Restaurant2.Controllers.Users
 			return Json(new { redirect = "Search" });
 		}
 
-		public async Task<IActionResult> Search(string s)
-		{
-			if (string.IsNullOrEmpty(s))
-			{
-				return View("ManageMenu", new List<BE.Food>());
-			}
+        public async Task<IActionResult> Search(string s)
+        {
+            if (string.IsNullOrEmpty(s))
+            {
+                ViewBag.TotalFoods = 0;
+                ViewBag.PageSize = 10; 
+                ViewBag.CurrentPage = 1;
+                return View("ManageMenu", new List<BE.Food>());
 
-			JArray jArray;
-			try
-			{
-				jArray = JArray.Parse(s);
-			}
-			catch (Exception ex)
-			{
-				// Log the exception
-				return View("ManageMenu", new List<BE.Food>());
-			}
+            }
 
-			List<string> split = new List<string>();
-			foreach (dynamic item in jArray)
-			{
-				split.Add(item.tag.ToString());
-			}
+            JArray jArray;
+            try
+            {
+                jArray = JArray.Parse(s);
+            }
+            catch (Exception ex)
+            {
+                ViewBag.TotalFoods = 0;
+                ViewBag.PageSize = 10; 
+                ViewBag.CurrentPage = 1;
+                return View("ManageMenu", new List<BE.Food>());
+            }
 
-			blFood blFood = new blFood();
-			List<BE.Food> listFood = await blFood.GetFoodsByName(split);
+            List<string> split = new List<string>();
+            foreach (dynamic item in jArray)
+            {
+                split.Add(item.tag.ToString());
+            }
 
-			return View("ManageMenu", listFood);
-		}
+            blFood blFood = new blFood();
+            List<BE.Food> listFood = await blFood.GetFoodsByName(split);
 
-	}
+            ViewBag.TotalFoods = listFood.Count;
+            ViewBag.PageSize = 10; 
+            ViewBag.CurrentPage = 1; 
+            return View("ManageMenu", listFood);
+        }
+
+
+    }
 }
 
