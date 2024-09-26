@@ -29,8 +29,8 @@
                         با خانواده بیایید و لذت غذاهای خوشمزه را تجربه کنید
                     </p>
                     <a href="#menu" class="btn btn-primary slider-reveal">
-                        <span class="text text-1">مشاهده منوی ما</span>
-                        <span class="text text-2" aria-hidden="true">مشاهده منوی ما</span>
+                        <span style="font-weight:900;font-size:25px;" class="text text-1">مشاهده منو</span>
+                        <span style="font-weight:900;font-size:25px;" class="text text-2" aria-hidden="true">مشاهده منو</span>
 
                         </a>
                 </li>
@@ -51,8 +51,8 @@
                         با خانواده بیایید و لذت غذاهای خوشمزه را تجربه کنید
                     </p>
                     <a href="#menu" class="btn btn-primary slider-reveal">
-                        <span class="text text-1">مشاهده منوی ما</span>
-                        <span class="text text-2" aria-hidden="true">مشاهده منوی ما</span>
+                        <span style="font-weight:900;font-size:25px;" class="text text-1">مشاهده منو</span>
+                        <span style="font-weight:900;font-size:25px;" class="text text-2" aria-hidden="true">مشاهده منو</span>
 
                         </a>
 
@@ -73,12 +73,12 @@
     با خانواده بیایید و لذت غذاهای خوشمزه را تجربه کنید
 </p>
 
-                    <a href="#" class="btn btn-primary slider-reveal">
+                    <a href="#menu" class="btn btn-primary slider-reveal">
 
-                        <span class="text text-1">مشاهده منوی ما</span>
+                        <span style="font-weight:900;font-size:25px;" class="text text-1">مشاهده منو </span>
 
 
-                        <span class="text text-2" aria-hidden="true">مشاهده منوی ما</span>
+                        <span style="font-weight:900;font-size:25px;" class="text text-2" aria-hidden="true">مشاهده منو </span>
                     </a>
 
                 </li>
@@ -137,7 +137,7 @@
                                 <h3 class="title-4 card-title">
                                     <a href="#">صبحانه</a>
                                 </h3>
-                                <a href="#" class="btn-text hover-underline label-2">مشاهده منو</a>
+                                <a href="#menu" class="btn-text hover-underline label-2">مشاهده منو</a>
 
                             </div>
 
@@ -289,7 +289,7 @@
                         <span class="span body-1">تومان 200.000</span>
                     </div>
 
-                    <a href="#" class="btn btn-primary">
+                    <a href="#menu" class="btn btn-primary">
                         <span class="text text-1">مشاهده تمام منو</span>
 
                         <span class="text text-2" aria-hidden="true">مشاهده تمام منو</span>
@@ -314,10 +314,21 @@
         -->
         <!------------------------------------------menu------------------------------------------------------------->
         @await Component.InvokeAsync("Menu");
-      
+        @if (ViewBag.OrderCount > 0)
+        {
+            <div class="shake">
+                <a href="#" class="btn btn-secondary">
+                    <span class="text text-1 responsive-text">(@ViewBag.OrderCount) تکمیل خرید <i class="fa-duotone fa-solid fa-burger-soda"></i></span>
+                    <span class="text text-2 responsive-text" aria-hidden="true">(@ViewBag.OrderCount) تکمیل خرید <i class="fa-duotone fa-solid fa-burger-soda"></i></span>
+                </a>
+            </div>
+        }
 
 
 
+
+
+        
 
 
         <!--

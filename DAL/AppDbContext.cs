@@ -42,8 +42,12 @@ namespace DAL
             modelBuilder.Entity<Food>()
          .HasOne(f => f.FoodHistory) 
          .WithOne(fh => fh.Food)    
-         .HasForeignKey<FoodHistory>(fh => fh.FoodHistoryFoodId); 
+         .HasForeignKey<FoodHistory>(fh => fh.FoodHistoryFoodId);
 
+            modelBuilder.Entity<Food>()
+      .HasOne(f => f.Order)   // هر غذا یک سفارش دارد
+      .WithOne(o => o.Food)   // هر سفارش فقط یک غذا دارد
+      .HasForeignKey<Order>(o => o.FoodId);
         }
 
         public DbSet<Food> Foods{ set; get; }

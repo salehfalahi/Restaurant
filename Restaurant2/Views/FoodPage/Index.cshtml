@@ -5,10 +5,8 @@
 }
 @section preHome{
     <link href="~/css/FoodPage.css" rel="stylesheet" />
-
 }
 <section class="sec-food">
-
 
     <div class="pop-up-container-vertical">
         <img src="./assets/images/shape-2.png" width="343" height="345" loading="lazy" alt="shape" class="shape shape-2 move-anim">
@@ -18,7 +16,10 @@
                 <i  class="fa fa-arrow-left" style="position: relative; height: 35px;  width: 40px;  font-weight: 900; bottom: 60px;color: #191919;"></i>       
             </div>
           </a>
-        <div class="product-details">
+
+            <form asp-action="AddToBasket" asp-controller="FoodPage" method="post" enctype="multipart/form-data" class="form-horizontal" role="form">
+
+                <div class="product-details">
             <div class="product-left">
                 <div class="product-info">
                     <div class="product-manufacturer">
@@ -39,7 +40,7 @@
             <div class="product-right">
                 <div class="product-description">
                    @Model.Description
-                   </div>
+                </div>
                 @* <div class="product-available">
                   <span class="product-extended"><a href="#">Buy Extended Warranty</a></span>
                 </div> *@
@@ -64,18 +65,16 @@
                     @* <div class="product-rating-details">
                         (3.1 - <span class="rating-count">1203</span> reviews)
                     </div> *@
-
                 </div>
                 <div class="product-quantity">
-                  
                     <div class="product-quantity-subtract">
-                            <i class="fa fa-chevron-left" style="color:var(--gold-crayola);"></i>
+                         <i class="fa fa-chevron-left" style="color:var(--gold-crayola);"></i>
                     </div>
                     <div>
-                        <input type="text" id="product-quantity-input" placeholder="1" value="1">
+                       <input name="Count" type="text" id="product-quantity-input" min="1" placeholder="1" value="1">
                     </div>
                     <div class="product-quantity-add">
-                            <i class="fa fa-chevron-right" style="color:var(--gold-crayola);"></i>
+                         <i class="fa fa-chevron-right" style="color:var(--gold-crayola);"></i>
                     </div>
                         <label for="product-quantity-input" class="product-quantity-label">:تعداد</label>
                 </div>
@@ -85,18 +84,22 @@
                     هزینه این سفارش
                     <div class="product-checkout-total">
                         تومان
-                        <div class="product-checkout-total-amount">@Model.Price </div>
+                        <div class="product-checkout-total-amount">       
+                            @Model.Price 
+                        </div>
+                                <input type="hidden" name="Price" value="@Model.Price" />
                     </div>
                 </div>
                 <div class="product-checkout-actions">
-                    <a class="add-to-cart btn btn-primary" href="#" onclick="AddToCart(event);">
-                            <span class="text text-1">افزودن به سفارشات</span>
-                            <span class="text text-2" aria-hidden="true">افزودن به سفارشات</span>
-                    </a>
-
+                            <input type="hidden" name="FoodId" value="@Model.Id" />
+                            <button type="submit" class="add-to-cart btn btn-primary">
+                        <span class="text text-1">افزودن به سفارشات</span>
+                        <span class="text text-2" aria-hidden="true">افزودن به سفارشات</span>
+                    </button>
                 </div>
             </div>
         </div>
+       </form>
     </div>
 </div>
 </section>
@@ -112,20 +115,17 @@
         $(lbi).attr("src", $(i).attr("src"));
         $(".lightbox-blanket").toggle();
 
-        $("#product-quantity-input").val("0");
-        CalcPrice(0);
-
     }
- 
-
-    //Calculate new total when the quantity changes.
         function CalcPrice(qty) {
             var price = parseFloat($(".product-price").attr("price-data"));
-            var total = (price * qty).toFixed(0); // یک رقم اعشاری بدون گرد کردن
+            var total = (price * qty).toFixed(0); // محاسبه قیمت نهایی
+
+            // به‌روزرسانی مقدار قیمت در عنصر نمایش قیمت
             $(".product-checkout-total-amount").text(total);
+
+            // به‌روزرسانی مقدار در input مخفی
+            $("input[type='hidden']").val(total);
         }
-
-
 
     //Reduce quantity by 1 if clicked
     $(document).on("click", ".product-quantity-subtract", function (e) {
@@ -152,7 +152,6 @@
         CalcPrice(value);
     });
 
-
     function AddToCart(e) {
         e.preventDefault();
         var qty = $("#product-quantity-input").val();
@@ -165,6 +164,12 @@
         setTimeout(function () {
             $(".toast").remove();
         }, 3500);
-    }
+    }   
   </script>
+
+     @*   غذا ثبت *@
+
+
+
+
 }

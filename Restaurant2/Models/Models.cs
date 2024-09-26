@@ -81,17 +81,17 @@ namespace Restaurant2.Models
     {
         [Key]
         public int Id { get; set; }
-        public bool TakeOut { get; set; }
-        public List<Food> Items { get; set; } = new List<Food>();
-        [ForeignKey("OrderUserId")]
-        public int OrderUserId { get; set; }
-        public AppUser User { get; set; }
+        public byte? Count { get; set; }
+        public int FoodId { get; set; }
+        public Food Food { get; set; }
+
         [ForeignKey("OrderBasketId")]
         public int OrderBasketId { get; set; }
         public Basket Basket { get; set; }
 
         public double Price { get; set; }
-        public string Time { get; set; }
+     
+    
     }
 
     public class FoodHistory

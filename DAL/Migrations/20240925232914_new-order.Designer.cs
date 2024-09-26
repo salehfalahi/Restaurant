@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DAL.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240925193552_new-order")]
+    [Migration("20240925232914_new-order")]
     partial class neworder
     {
         /// <inheritdoc />
@@ -119,8 +119,13 @@ namespace DAL.Migrations
                     b.Property<bool>("Erased")
                         .HasColumnType("bit");
 
+                    b.Property<byte?>("Table")
+                        .HasColumnType("tinyint");
+
+                    b.Property<bool>("TakeOut")
+                        .HasColumnType("bit");
+
                     b.Property<string>("UserId")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
@@ -211,9 +216,6 @@ namespace DAL.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("OrderId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Photo")
                         .HasColumnType("nvarchar(max)");
 
@@ -229,8 +231,6 @@ namespace DAL.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("MenuId");
-
-                    b.HasIndex("OrderId");
 
                     b.ToTable("Foods");
                 });
@@ -298,36 +298,35 @@ namespace DAL.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("AppUserId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<int>("BasketId")
+                        .HasColumnType("int");
+
+                    b.Property<byte?>("Count")
+                        .HasColumnType("tinyint");
+
+                    b.Property<int>("FoodId")
                         .HasColumnType("int");
 
                     b.Property<int>("OrderBasketId")
                         .HasColumnType("int");
 
-                    b.Property<int>("OrderUserId")
-                        .HasColumnType("int");
-
                     b.Property<double>("Price")
                         .HasColumnType("float");
 
-                    b.Property<byte?>("Table")
-                        .HasColumnType("tinyint");
-
-                    b.Property<bool>("TakeOut")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Time")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<DateTime>("Time")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("AppUserId");
+
                     b.HasIndex("BasketId");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("FoodId")
+                        .IsUnique();
 
                     b.ToTable("Orders");
                 });
@@ -430,19 +429,19 @@ namespace DAL.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "aae8a1d6-6857-4570-9c90-3608edc65bb6",
+                            Id = "19512aa3-33bd-46d6-b279-dff9cd39b335",
                             Name = "manager",
                             NormalizedName = "manager"
                         },
                         new
                         {
-                            Id = "f678b680-c199-411d-a88d-b5237fe2244d",
+                            Id = "92078257-662d-41b4-ac01-755f43f0ca86",
                             Name = "admin",
                             NormalizedName = "admin"
                         },
                         new
                         {
-                            Id = "2a38551e-5101-4f3d-ad75-13969fffb93e",
+                            Id = "0239d920-7168-47d7-9973-b3153f47e3e6",
                             Name = "customer",
                             NormalizedName = "customer"
                         });
@@ -562,9 +561,7 @@ namespace DAL.Migrations
                 {
                     b.HasOne("BE.AppUser", "User")
                         .WithMany("Baskets")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("UserId");
 
                     b.Navigation("User");
                 });
@@ -602,10 +599,6 @@ namespace DAL.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("BE.Order", null)
-                        .WithMany("Items")
-                        .HasForeignKey("OrderId");
-
                     b.Navigation("Menu");
                 });
 
@@ -628,19 +621,25 @@ namespace DAL.Migrations
 
             modelBuilder.Entity("BE.Order", b =>
                 {
+                    b.HasOne("BE.AppUser", null)
+                        .WithMany("Orders")
+                        .HasForeignKey("AppUserId");
+
                     b.HasOne("BE.Basket", "Basket")
                         .WithMany("Orders")
                         .HasForeignKey("BasketId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("BE.AppUser", "User")
-                        .WithMany("Orders")
-                        .HasForeignKey("UserId");
+                    b.HasOne("BE.Food", "Food")
+                        .WithOne("Order")
+                        .HasForeignKey("BE.Order", "FoodId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Basket");
 
-                    b.Navigation("User");
+                    b.Navigation("Food");
                 });
 
             modelBuilder.Entity("BE.Recipe", b =>
@@ -751,6 +750,9 @@ namespace DAL.Migrations
                     b.Navigation("Comments");
 
                     b.Navigation("FoodHistory");
+
+                    b.Navigation("Order")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("BE.FoodHistory", b =>
@@ -761,11 +763,6 @@ namespace DAL.Migrations
             modelBuilder.Entity("BE.Menu", b =>
                 {
                     b.Navigation("Foods");
-                });
-
-            modelBuilder.Entity("BE.Order", b =>
-                {
-                    b.Navigation("Items");
                 });
 
             modelBuilder.Entity("BE.Recipe", b =>

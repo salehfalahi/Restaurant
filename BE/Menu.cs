@@ -19,10 +19,10 @@ namespace BE
     {
         [Key]
         public int Id { get; set; }
-
+        public byte? Table { get; set; }
         public List<Order> Orders { get; set; } = new List<Order>();
         public bool Erased { get; set; }
-
+        public bool TakeOut { get; set; }
         [ForeignKey("BasketUserId")]
         public int BasketUserId { get; set; }
         public AppUser User { get; set; }
@@ -50,24 +50,27 @@ namespace BE
         public FoodHistory? FoodHistory { get; set; }
 
         public List<Comment> Comments { get; set; } = new List<Comment>();
+        public Order Order { get; set; }
 
     }
     public class Order
     {
         [Key]
         public int Id { get; set; }
-        public byte? Table { get; set; }
-        public bool TakeOut { get; set; }
-        public List<Food> Items { get; set; } = new List<Food>();
-        [ForeignKey("OrderUserId")]
-        public int OrderUserId { get; set; }
-        public AppUser User { get; set; }
+        
+        public byte? Count { get; set; }
+      
+        public int FoodId { get; set; }
+
+        public Food Food { get; set; }
+   
+     
         [ForeignKey("OrderBasketId")]
         public int OrderBasketId { get; set; }
         public Basket Basket { get; set; }
 
         public double Price { get; set; }
-        public string Time { get; set; }
+        public DateTime Time { get; set; }
     }
 
     public class FoodHistory

@@ -215,7 +215,59 @@ body.nav-active { overflow: hidden; }
 
 
 
+/*افکت دکمه تکمیل خرید*/
+@keyframes shake {
+    0% {
+        transform: rotate(0deg) translate3d(0, 0, 0);
+    }
 
+    25% {
+        transform: rotate(3deg) translate3d(0, 0, 0);
+    }
+
+    50% {
+        transform: rotate(-3deg) translate3d(0, 0, 0);
+    }
+
+    75% {
+        transform: rotate(1deg) translate3d(0, 0, 0);
+    }
+
+    100% {
+        transform: rotate(0deg) translate3d(0, 0, 0);
+    }
+}
+
+.shake {
+    animation: shake 2.5s; /* مدت زمان افکت */
+    animation-iteration-count: infinite; /* تعداد تکرار افکت */
+}
+.shake {
+    position: fixed;
+    bottom: 20px;
+  
+    width: 80%;
+    max-width: 500px;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 4;
+}
+
+.btn-secondary {
+    width: 100%;
+    text-align: center;
+}
+.responsive-text {
+    font-size: 2vw; /* می‌توانید این مقدار را تنظیم کنید */
+}
+
+@media (max-width: 600px) {
+    .responsive-text {
+        font-size: 3.5vw; /* سایز بزرگتر برای صفحه‌های کوچکتر */
+    }
+}
 
 /*-----------------------------------*\
   #TYPOGRAPHY
@@ -1173,8 +1225,15 @@ body.nav-active { overflow: hidden; }
 }
 
 .menu-card .card-text {
-  color: var(--quick-silver);
-  line-height: var(--lineHeight-4);
+    color: var(--quick-silver);
+    line-height: var(--lineHeight-4);
+    display: -webkit-box; /* استفاده از box مدل */
+    -webkit-box-orient: vertical; /* تنظیم جهت */
+    -webkit-line-clamp: 2; /* تعداد خطوط قابل نمایش */
+    overflow: hidden; /* مخفی کردن محتوای اضافی */
+    text-overflow: ellipsis;
+    direction: rtl; /* راست‌چین کردن متن */
+    text-align: right;
 }
 
 .menu-text .span {
