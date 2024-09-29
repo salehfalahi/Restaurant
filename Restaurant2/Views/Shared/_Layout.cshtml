@@ -26,15 +26,15 @@
     <!--
       - custom css link
     -->
-    <link href="~/assets/css/Home.css" rel="stylesheet" />
+    <link href="~/assets/css/Homee.css" rel="stylesheet" />
     <!--
       - preload images
     -->
-    <link rel="preload" as="image" href="./assets/images/hero-slider-1.jpg">
-    <link rel="preload" as="image" href="./assets/images/hero-slider-2.jpg">
-    <link rel="preload" as="image" href="./assets/images/hero-slider-3.jpg">
+    <link rel="preload" as="image" href="~/assets/images/hero-slider-1.jpg">
+    <link rel="preload" as="image" href="~/assets/images/hero-slider-2.jpg">
+    <link rel="preload" as="image" href="~/assets/images/hero-slider-3.jpg">
 
-
+     <link href="~/css/persian-datepicker.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="~/fontawesome.pro.6.5.2/fontawesome.pro.6.5.2/css/all.css">
     @await RenderSectionAsync("preHome", required: false)
 </head>
@@ -113,6 +113,12 @@
             </a>   
            
             <partial class="partial1" name="_LoginPartial" />
+            <div class="shake">
+                <a href="#" class="btn btn-primary show-modal">
+                    <span class="text text-1 responsive-text ">(@ViewBag.OrderCount)تکمیل خرید <i class="fa-duotone fa-solid fa-burger-soda"></i></span>
+                    <span class="text text-2 responsive-text  " aria-hidden="true">(@ViewBag.OrderCount)تکمیل خرید <i class="fa-duotone fa-solid fa-burger-soda"></i></span>
+                </a>
+            </div> 
             <nav class="navbar" data-navbar>
 
                 <button class="close-btn" aria-label="close menu" data-nav-toggler>
@@ -124,6 +130,8 @@
                 </a>
            
                 <partial class="partial1" name="_LoginPartial" />
+                
+               
                 <ul class="navbar-list">
 
                     <li class="navbar-item">
@@ -219,9 +227,7 @@
     <!--
       - #FOOTER
     -->
-
-    <footer class="footer section has-bg-image text-center"
-            style="background-image: url('./assets/images/footer-bg.jpg')">
+    <footer class="footer section has-bg-image text-center" style="background-image: url('~/assets/images/footer-bg.jpg')">
         <div class="container">
 
             <div class="footer-top grid-list">
@@ -300,12 +306,12 @@
             </div>
 
             <div class="footer-bottom">
-
                 <p class="copyright">
-                    &copy; 2022 Grilli. All Rights Reserved | Crafted by <a href="https://github.com/codewithsadee"
-                                                                            target="_blank" class="link">codewithsadee</a>
+                    &copy; 2024 Grilli. All Rights Reserved | Crafted by <a href="https://github.com/salehfalahi
+" target="_blank" class="link">
+                        salehfalahi
+                    </a>
                 </p>
-
             </div>
 
         </div>
@@ -337,7 +343,10 @@
     -->
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
+    <script src="~/fontawesome.pro.6.5.2/fontawesome.pro.6.5.2/js/all.js"></script>
 
 @*     <script src="~/lib/jquery/dist/jquery.min.js"></script> *@
 
@@ -380,21 +389,21 @@
             delay: 400
         });
         //title h2//
-        ScrollReveal().reveal('    ', { delay: 300, origin: 'left' });
-        ScrollReveal().reveal(' ', { delay: 300, origin: 'rihgt' });
+        // ScrollReveal().reveal('    ', { delay: 300, origin: 'left' });
+        // ScrollReveal().reveal(' ', { delay: 300, origin: 'rihgt' });
+
+        // ScrollReveal().reveal('    ', { delay: 300, origin: 'left' });
+        // ScrollReveal().reveal(' ', { delay: 300, origin: 'rihgt' });
         //sec,img//
         ScrollReveal().reveal('.col-md-6  ', { delay: 500, origin: 'bottom' });
-        ScrollReveal().reveal(' ', { delay: 500, origin: 'right' });
-        ScrollReveal().reveal('.showFood  ', { delay: 200, origin: 'bottom', interval: 200 });
-        ScrollReveal().reveal(' ', { delay: 300, origin: 'top' });
-        ScrollReveal().reveal('', { delay: 300, origin: 'left', interval: 200 });
+        // ScrollReveal().reveal(' ', { delay: 500, origin: 'right' });
+        ScrollReveal().reveal('.showFood', { delay: 200, origin: 'bottom', interval: 200 });
+        // ScrollReveal().reveal(' ', { delay: 300, origin: 'top' });
+        // ScrollReveal().reveal('', { delay: 300, origin: 'left', interval: 200 });
     </script>
     @await RenderSectionAsync("Scripts", required: false)
     <!--پارشیال اسکریپت-->
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-  
-    <script src="~/fontawesome.pro.6.5.2/fontawesome.pro.6.5.2/js/all.js"></script>
+
     <!--دکمه ثبت نام-->
     <script>
         $(document).ready(function () {
@@ -510,5 +519,171 @@
         });
     </script>
 
+    <script>
+        // modal
+        function openLightBox() {
+            var modal = $('.modal');
+            $('.show-modal').on('click', function () {
+                modal.fadeIn();
+            });
+
+            $('.close-modal').on('click', function () {
+                modal.fadeOut();
+            });
+
+
+        }
+        openLightBox();
+
+
+
+
+
+
+
+
+
+        var card_list_par = document.querySelector('.content__container'),
+            card_list = document.querySelector('.card__wrapper'),
+            loader = document.querySelector('.loader-fill'),
+            printer = document.querySelector('.printer__wrapper'),
+            countdiff = 0,
+            progressBar = 0,
+            maxDragDis = 150,
+            minDragDis = 80,
+            printerPos = -100,
+            resetInterval = 0.3,
+            cursor = {
+                state: 'up',
+                prevY: 0
+            };
+
+        attachEvent(card_list_par);
+
+        function attachEvent(el) {
+
+            // for website
+            el.addEventListener('mousedown', function (e) { mouseDown(e) });
+            el.addEventListener('mousemove', function (e) { mouseMove(e) });
+            el.addEventListener('mouseup', function (e) { mouseUp(e) });
+            el.addEventListener('mouseout', function (e) { mouseOut(e) });
+
+            // for mobile site
+            el.addEventListener('touchstart', function (e) { mouseDown(e) });
+            el.addEventListener('touchmove', function (e) { mouseMove(e) });
+            el.addEventListener('touchend', function (e) { mouseUp(e) });
+
+        }
+
+        function dragToRefreshStatus(el) {
+            // console.log(parseInt(el.scrollTop));
+            return (parseInt(el.scrollTop) === 0 ? true : false);
+        }
+
+        function mouseDown(e) {
+            cursor.state = 'down';
+
+            if (dragToRefreshStatus(card_list_par)) {
+                card_list.style.cursor = "move";
+                cursor.prevY = e.pageY;
+            }
+        }
+
+        function mouseUp(e) {
+
+            if (cursor.state === 'up') return false;
+            cursor.state = 'up';
+            card_list.style.cursor = "";
+
+            if (countdiff < minDragDis) {
+                countdiff = 0;
+                card_list_par.classList.add('resetDrag');
+
+                setTimeout(function () {
+                    card_list_par.classList.remove('resetDrag');
+                    card_list.style.transform = '';
+                    loader.style.transform = '';
+                    printer.style.transform = '';
+
+                }, resetInterval * 1000);
+
+            } else if (countdiff >= minDragDis) {
+                countdiff = maxDragDis;
+            }
+        }
+
+        function mouseMove(e) {
+
+            if (cursor.state === 'up') {
+                return false;
+
+            } else if (cursor.state === 'down') {
+
+                if (dragToRefreshStatus(card_list_par)) {
+                    // e.preventDefault();
+                    let posNowY = e.pageY;
+                    countdiff = (posNowY - cursor.prevY);
+
+                    if (countdiff < 0) {
+                        countdiff = 0;
+                    } else if (countdiff > maxDragDis) {
+                        countdiff = maxDragDis;
+                    }
+
+                    progressBar = countdiff / maxDragDis;
+                    let movePrinter = Math.abs(printerPos * progressBar);
+
+                    card_list.style.transform = 'translate3d(0,' + countdiff + 'px,0)';
+                    loader.style.transform = 'scaleX(' + Math.sqrt(progressBar) + ')';
+                    printer.style.transform = 'translate3d(0,' + movePrinter + 'px,0)';
+
+                }
+            }
+        }
+
+        function mouseOut(e) {
+
+            if (cursor.state === 'up') return false;
+            cursor.state = 'up';
+            card_list.style.cursor = "";
+
+            if (countdiff < maxDragDis) {
+                countdiff = 0;
+                card_list_par.classList.add('resetDrag');
+
+                setTimeout(function () {
+                    card_list_par.classList.remove('resetDrag');
+                    card_list.style.transform = '';
+                    loader.style.transform = '';
+                    printer.style.transform = '';
+
+                }, resetInterval * 1000);
+
+            }
+        }
+    </script>
+ 
+        <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            let totalAmount = 0;
+
+            // همه top-content ها را پیدا کن
+            const items = document.querySelectorAll('.top-content');
+
+            items.forEach(item => {
+                const price = parseFloat(item.getAttribute('data-price'));
+                const count = parseInt(item.getAttribute('data-count'));
+
+                // محاسبه مجموع برای هر آیتم
+                totalAmount += price * count;
+            });
+
+            // نمایش مجموع در بخش مربوطه
+            document.getElementById('amount').innerText = totalAmount.toLocaleString();
+        });
+    </script>
+   
+
+ 
 </body>
 </html>

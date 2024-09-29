@@ -1,7 +1,8 @@
-﻿@{
+﻿@model BE.Basket
+@using System.Linq
+@{
     ViewData["Title"] = "Home Page";
 }
-<link href="~/css/persian-datepicker.min.css" rel="stylesheet" />
 
 <main>
     <article>
@@ -65,13 +66,13 @@
                     </div>
 
                    <p class="label-2 section-subtitle slider-reveal">شگفت‌انگیز و لذیذ</p>
-<h1 class="display-1 hero-title slider-reveal">
-    جایی که هر طعم <br>
-    یک داستان را نقل می‌کند
-</h1>
-<p class="body-2 hero-text slider-reveal">
-    با خانواده بیایید و لذت غذاهای خوشمزه را تجربه کنید
-</p>
+                    <h1 class="display-1 hero-title slider-reveal">
+                        جایی که هر طعم <br>
+                        یک داستان را نقل می‌کند
+                    </h1>
+                    <p class="body-2 hero-text slider-reveal">
+                        با خانواده بیایید و لذت غذاهای خوشمزه را تجربه کنید
+                    </p>
 
                     <a href="#menu" class="btn btn-primary slider-reveal">
 
@@ -101,10 +102,6 @@
             </a>
 
         </section>
-
-
-
-
 
         <!--
           - #SERVICE
@@ -314,22 +311,76 @@
         -->
         <!------------------------------------------menu------------------------------------------------------------->
         @await Component.InvokeAsync("Menu");
-        @if (ViewBag.OrderCount > 0)
-        {
-            <div class="shake">
-                <a href="#" class="btn btn-secondary">
-                    <span class="text text-1 responsive-text">(@ViewBag.OrderCount) تکمیل خرید <i class="fa-duotone fa-solid fa-burger-soda"></i></span>
-                    <span class="text text-2 responsive-text" aria-hidden="true">(@ViewBag.OrderCount) تکمیل خرید <i class="fa-duotone fa-solid fa-burger-soda"></i></span>
-                </a>
-            </div>
+        @if(ViewBag.OrderCount > 0){
+        <div class="shake">
+            <a href="#" class="btn btn-primary show-modal" aria-label="open menu">
+                <span class="text text-1 responsive-text ">(@ViewBag.OrderCount)تکمیل خرید <i class="fa-duotone fa-solid fa-burger-soda"></i></span>
+                <span class="text text-2 responsive-text" aria-hidden="true">(@ViewBag.OrderCount)تکمیل خرید <i class="fa-duotone fa-solid fa-burger-soda"></i></span>
+            </a>
+        </div>
         }
+        <div class="modal">
+         
+            <div class="container-modal">
+                <div class="header__container">
+                    <a class="close-modal" href="#menu">
+                         <div class="go-back" >
+                            <i  class="fa fa-arrow-left" style="position: relative; height: 35px;  width: 40px;  font-weight: 900; bottom: 60px;color: #191919;"></i>       
+                         </div>
+                    </a>
+                    <i class="fa-sharp-duotone fa-solid fa-clipboard-list"></i>
+                    <span class="header-text"> سفارشات شما </span>
+                </div>
+                <div class="content__container">                  
+                  <div class="card__wrapper">
+                   <div class="card__container">
 
+                            @if (ViewBag.BasketOrders is List<Restaurant2.Models.BasketOrder> basketOrders && basketOrders.Any())
+                            {
+                                <div class="invoice">
+                                    <div style="display: flex; align-items: center; color: #212121;">
+                                        
+                                        <span id="amount" style="margin-left: 5px;">0</span>
+                                        <span style="margin-left: 5px;">تومان</span>
+                                        <b style="margin-left: 5px;"> :مجموع </b>
+                                    </div>
+                                    <div><a class="btn"><i style="margin: 0 10px;" class="fa-thin fa-clipboard-list-check"></i> پرداخت</a></div>
+                                </div>
 
+                                foreach (var order in basketOrders)
+                                {
+                                    <div class="top-content" data-price="@order.Food.Price" data-count="@order.Count">
+                                        <div class="card-type payment receipt"></div>
+                                        <div class="info__container">
+                                            <div class="left-info">
+                                                <div class="img__container">
+                                                    <img src="@order.Food.Photo" alt="@order.Food.Name">
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <div class="main-text">@order.Food.Name</div>
+                                            </div>
+                                            <div class="text-info">
+                                                <div class="secondary-text"><strong>تعداد:</strong> @order.Count</div>
+                                            </div>
+                                            <div class="right-info">
+                                                <p class="price-info">تومان @order.Food.Price</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            }
+                            else
+                            {
+                                <p> ! سفارشی ثبت نشده</p>
+                            }
 
-
-
+                   </div>
+                </div>
+              </div>       
+            </div>
+        </div>
         
-
 
         <!--
           - #TESTIMONIALS
@@ -373,7 +424,7 @@
 
                 <div class="form reservation-form bg-black-10">
 
-                    <form id="reservation" action="" class="form-left">
+                    <form asp-action="CreateReservation" asp-controller="Home" id="reservation" method="post" enctype="multipart/form-data"  role="form" class="form-left">
 
                         <h2 class="headline-1 text-center">رزرو آنلاین</h2>
                         <p class="form-text text-center">
@@ -391,14 +442,14 @@
                             <div class="icon-wrapper">
                                 <ion-icon name="person-outline" aria-hidden="true"></ion-icon>
 
-                                <select name="person" class="input-field">
-                                    <option value="1-person">1 نفر</option>
-                                    <option value="2-person">2 نفر</option>
-                                    <option value="3-person">3 نفر</option>
-                                    <option value="4-person">4 نفر</option>
-                                    <option value="5-person">5 نفر</option>
-                                    <option value="6-person">6 نفر</option>
-                                    <option value="7-person">7 نفر</option>
+                                <select name="PersonCount" class="input-field">
+                                    <option value="1">1 نفر</option>
+                                    <option value="2">2 نفر</option>
+                                    <option value="3">3 نفر</option>
+                                    <option value="4">4 نفر</option>
+                                    <option value="5">5 نفر</option>
+                                    <option value="6">6 نفر</option>
+                                    <option value="7">7 نفر</option>
                                 </select>
 
                                 <ion-icon name="chevron-down" aria-hidden="true"></ion-icon>
@@ -408,7 +459,7 @@
                                 <ion-icon name="calendar-clear-outline" aria-hidden="true"></ion-icon>
 
                                 
-                                <input class="input-field" type="text" name="persianDatapicker" id="persianDatapicker">
+                                <input class="input-field" type="text" name="ReservationDate" id="persianDatapicker">
                                
                                 <ion-icon name="chevron-down" aria-hidden="true"></ion-icon>
                             </div>
@@ -416,7 +467,7 @@
                             <div class="icon-wrapper">
                                 <ion-icon name="time-outline" aria-hidden="true"></ion-icon>
 
-                                <select name="person" class="input-field">
+                                <select name="ReservationTime" class="input-field">
                                     <option value="08:00am">08 : 00 صبح</option>
                                     <option value="09:00am">09 : 00 صبح</option>
                                     <option value="010:00am">10 : 00 صبح</option>
@@ -658,5 +709,7 @@
 
 
 @section Scripts{
-
+    <script>
+       
+    </script>
 }

@@ -1,4 +1,4 @@
-
+﻿
 ::selection{background-color: white;}
 
 
@@ -80,9 +80,9 @@ box-sizing: content-box;}
   }
 }
 .sec-food {
-    margin-top: 14em;
+    margin-top: 11em;
     display: flex;
-    justify-content: center;
+   /* justify-content: center;*/
     align-items: center;
     padding-bottom: 2em;
 }
@@ -96,8 +96,11 @@ box-sizing: content-box;}
 }
 
 .pop-up-wrapper {
+   
+    border-radius: 0 10% 0 0;
     background: #191919;
-    box-shadow: lightblue 0px 10px 100px -20px, lightblue 0px 2px 0px -30px, lightblue 0px -2px 6px 0px inset;
+    background-color: rgba(65, 65, 65, 0.308);
+    border: 1px solid var(--gold-crayola);
     display: block;
     height: 100%;
     width: auto;
@@ -105,9 +108,8 @@ box-sizing: content-box;}
 }
 
 .pop-up-wrapper {
-
-  display: block;
-  padding: 70px;
+    display: block;
+    padding: 7% 2% 0px 7%
 }
 
 .go-back {
@@ -120,7 +122,6 @@ box-sizing: content-box;}
     border-top: 60px solid var(--gold-crayola);
     border-right: 60px solid transparent;
 }
-
 
 
 .product-details {
@@ -141,7 +142,9 @@ box-sizing: content-box;}
     width: 49%;
 }
 
-.product-bottom{border-top:1px solid #ccc; position:relative; padding-top:10px;}
+.product-bottom{
+    height:80px;
+    border-top:1px solid #ccc; position:relative; padding-top:10px;}
 
 @media (max-width:650px){
   .product-left, .product-right, .product-bottom{
@@ -230,7 +233,7 @@ i.fa-star.rating{color: rgb(232, 217, 31);}
     border-radius: 50px;
     background-color: #eee;
     border: none;
-    width: 2.5em;
+    width: 2.1em;
     text-align: center;
 }
 .product-quantity-subtract, .product-quantity-add{margin-left: 12px; padding-left:5px; padding-right: 5px;}
@@ -263,3 +266,81 @@ i.fa-star.rating{color: rgb(232, 217, 31);}
 .hidden {
   display: none;
 }
+
+
+
+.add-to-cart {
+    padding: 10px 20px; /* تنظیم اندازه دکمه */
+    font-size: 16px; /* اندازه فونت پیش‌فرض */
+    border-radius: 5px; /* گوشه‌های دکمه */
+    transition: background-color 0.3s ease; /* انیمیشن رنگ */
+}
+
+/* برای صفحه‌های کوچک‌تر */
+@media (max-width: 768px) {
+    .add-to-cart {
+        padding: 8px 15px; /* کاهش اندازه دکمه */
+        font-size: 14px; /* کاهش اندازه فونت */
+    }
+}
+
+@media (max-width: 480px) {
+    .add-to-cart {
+        padding: 3px 5px; /* اندازه دکمه برای گوشی‌های کوچک */
+        font-size: 10px; /* اندازه فونت برای گوشی‌های کوچک */
+    }
+    .product-checkout-total, .product-description, .product-rating, .product-quantity-label {
+        font-size: 12px;
+    }
+    .product-price, .product-title, .product-checkout-total-amount {
+        font-size: 20px;
+    }
+    .product-manufacturer {
+        font-size: 28px;
+    }
+    .product-image{
+        width:95%;
+        padding:0;
+    }
+    .product-info {
+        padding: 0 0 0 50px;
+    }
+    .product-description{
+        margin-top:2%;
+    }
+    .product-quantity-subtract{
+        margin:10px 0;
+    }
+    .product-checkout-actions{
+        margin-top:10px;
+    }
+}
+.shape {
+   
+    display: block;
+    width: 70%;
+    position: absolute;
+    max-width: max-content;
+}
+.move-anim {
+    animation: move 5s linear infinite;
+}
+@keyframes move {
+    0%, 100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(30px);
+    }
+}
+.shape-3 {
+    bottom: 0;
+    right: 0;
+}
+.shape-2{
+    right:0;
+}
+
+
+

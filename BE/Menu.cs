@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace BE
 {
+
     public class Menu
     {
         [Key]
@@ -101,5 +102,32 @@ namespace BE
         public string Description { get; set; }
         public string Text { get; set; }
     }
+    [Table("Reservations")]
+    public class Reservation
+    {
+        [Key]
+        public int Id { get; set; } 
 
+        [Required(ErrorMessage = "نام شما الزامی است.")]
+        [StringLength(100, ErrorMessage = "نام نمی‌تواند بیشتر از 100 کاراکتر باشد.")]
+        public string Name { get; set; }
+
+        [Required(ErrorMessage = "شماره تماس الزامی است.")]
+        [Phone(ErrorMessage = "لطفاً یک شماره تماس معتبر وارد کنید.")]
+        public string Phone { get; set; }
+
+        [Required(ErrorMessage = "تعداد نفرات الزامی است.")]
+        public int PersonCount { get; set; } 
+
+        [Required(ErrorMessage = "تاریخ الزامی است.")]
+        [DataType(DataType.Date)]
+        public string? ReservationDate { get; set; }
+
+        [Required(ErrorMessage = "ساعت الزامی است.")]
+        [DataType(DataType.Time)]
+        public string? ReservationTime { get; set; }
+
+        [StringLength(500, ErrorMessage = "توضیحات نمی‌تواند بیشتر از 500 کاراکتر باشد.")]
+        public string Message { get; set; }
+    }
 }

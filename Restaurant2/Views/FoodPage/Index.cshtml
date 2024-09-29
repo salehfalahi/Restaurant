@@ -4,12 +4,12 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @section preHome{
-    <link href="~/css/FoodPage.css" rel="stylesheet" />
+    <link href="~/css/FoodPagee.css" rel="stylesheet" />
 }
 <section class="sec-food">
-
+  
     <div class="pop-up-container-vertical">
-        <img src="./assets/images/shape-2.png" width="343" height="345" loading="lazy" alt="shape" class="shape shape-2 move-anim">
+        <img src="~/assets/images/shape-2.png" width="343" height="345" loading="lazy" alt="shape" class="shape shape-2 move-anim">
     <div class="pop-up-wrapper">
           <a href="/">   
             <div class="go-back" >
@@ -87,11 +87,13 @@
                         <div class="product-checkout-total-amount">       
                             @Model.Price 
                         </div>
+                                <input type="hidden" name="FoodId" value="@Model.Id" />
                                 <input type="hidden" name="Price" value="@Model.Price" />
+
                     </div>
                 </div>
                 <div class="product-checkout-actions">
-                            <input type="hidden" name="FoodId" value="@Model.Id" />
+                         
                             <button type="submit" class="add-to-cart btn btn-primary">
                         <span class="text text-1">افزودن به سفارشات</span>
                         <span class="text text-2" aria-hidden="true">افزودن به سفارشات</span>
@@ -102,20 +104,22 @@
        </form>
     </div>
 </div>
+
+    <img src="~/assets/images/shape-6.png" width="343" height="345" loading="lazy" alt="shape" class="shape shape-3 move-anim">
 </section>
 @section Scripts{
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
 <script>
     //Go Back
-    function OpenProduct(i) {
-        var i = $('.product-image[item-data="' + i + '"] img');
-        var lbi = $('.lightbox-blanket .product-image img');
-        console.log($(i).attr("src"));
-        $(lbi).attr("src", $(i).attr("src"));
-        $(".lightbox-blanket").toggle();
+        function OpenProduct(i) {
+            var imgElement = $('.product-image[item-data="' + i + '"] img');
+            var lightboxImg = $('.lightbox-blanket .product-image img');
+            console.log($(imgElement).attr("src"));
+            $(lightboxImg).attr("src", $(imgElement).attr("src"));
+            $(".lightbox-blanket").toggle();
+        }
 
-    }
         function CalcPrice(qty) {
             var price = parseFloat($(".product-price").attr("price-data"));
             var total = (price * qty).toFixed(0); // محاسبه قیمت نهایی
@@ -123,34 +127,34 @@
             // به‌روزرسانی مقدار قیمت در عنصر نمایش قیمت
             $(".product-checkout-total-amount").text(total);
 
-            // به‌روزرسانی مقدار در input مخفی
-            $("input[type='hidden']").val(total);
+            // به‌روزرسانی مقدار در input مخفی مربوط به Price
+            $("input[name='Price']").val(total);
         }
 
-    //Reduce quantity by 1 if clicked
-    $(document).on("click", ".product-quantity-subtract", function (e) {
-        var value = $("#product-quantity-input").val();
-        //console.log(value);
-        var newValue = parseInt(value) - 1;
-        if (newValue < 0) newValue = 0;
-        $("#product-quantity-input").val(newValue);
-        CalcPrice(newValue);
-    });
+        // کاهش مقدار به میزان 1 اگر کلیک شد
+        $(document).on("click", ".product-quantity-subtract", function (e) {
+            var value = $("#product-quantity-input").val();
+            var newValue = Math.max(1, parseInt(value) - 1); // حداقل 1
+            $("#product-quantity-input").val(newValue);
+            CalcPrice(newValue);
+        });
 
-    //Increase quantity by 1 if clicked
-    $(document).on("click", ".product-quantity-add", function (e) {
-        var value = $("#product-quantity-input").val();
-        //console.log(value);
-        var newValue = parseInt(value) + 1;
-        $("#product-quantity-input").val(newValue);
-        CalcPrice(newValue);
-    });
+        // افزایش مقدار به میزان 1 اگر کلیک شد
+        $(document).on("click", ".product-quantity-add", function (e) {
+            var value = $("#product-quantity-input").val();
+            var newValue = Math.max(1, parseInt(value) + 1); // حداقل 1
+            $("#product-quantity-input").val(newValue);
+            CalcPrice(newValue);
+        });
 
-    $(document).on("blur", "#product-quantity-input", function (e) {
-        var value = $("#product-quantity-input").val();
-        //console.log(value);
-        CalcPrice(value);
-    });
+        // بررسی مقدار در input در صورت تغییر
+        $(document).on("blur", "#product-quantity-input", function (e) {
+            var value = $("#product-quantity-input").val();
+            var newValue = Math.max(1, parseInt(value)); // حداقل 1
+            $("#product-quantity-input").val(newValue);
+            CalcPrice(newValue);
+        });
+
 
     function AddToCart(e) {
         e.preventDefault();

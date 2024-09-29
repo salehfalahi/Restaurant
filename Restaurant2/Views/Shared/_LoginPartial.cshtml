@@ -160,10 +160,45 @@
             <li class="btn"><a id="login" asp-area="Identity" asp-page="/Account/Login">ورود</a></li>
         </ul> *@
     <select class="select-login" onchange="handleSelectChange(event)">
-        <option value="" selected disabled>عضویت</option>
+        <option value="" selected disabled>  عضویت</option>
         <option value="/Identity/Account/Register">ثبت نام</option>
         <option value="/Identity/Account/Login">ورود</option>
     </select>
+@* 
+    <div class="theme-popup">
+        <label for="checkbox" class="theme-popup__button">
+            <span class="theme-popup__icons">
+                <i class="fa-solid fa-user-tie"></i>
+            </span>
+            <a class="nav-link dropdown-toggle text-dark " href="#" role="button" data-bs-toggle="dropdown">
+                عضویت
+            </a>
+        </label>
+        <div class="theme-popup__list-container">
+            <ul class="theme-popup__list">
+                <li>
+                    <label class="theme-popup__button" for="default">
+                        <span class="theme-popup__icons">
+                            <i class="fa-solid fa-clipboard-check"></i>
+                        </span>
+                        <span>
+                            <a id="login" asp-area="Identity" asp-page="/Account/Login">ورود</a>
+                        </span>
+                    </label>
+                </li>
+
+                <li>
+                    <label for="light">
+                        <span class="theme-popup__icons">
+                            <i class="fa-regular fa-address-card"></i>
+                        </span>
+                        <a id="register" asp-area="Identity" asp-page="/Account/Register">ثبت نام</a>
+                    </label>
+                </li>
+            </ul>
+        </div>
+    </div> *@
+
     }
 
 

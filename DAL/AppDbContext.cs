@@ -57,5 +57,6 @@ namespace DAL
         public DbSet<Recipe> Recipes { set; get; }
         public DbSet<Comment> Comments { set; get; }
         public DbSet<Reply> Replys { set; get; }
+        public DbSet<Reservation> Reservations { set; get; }
     }
 }

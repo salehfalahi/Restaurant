@@ -4,6 +4,37 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Restaurant2.Models
 {
+
+    public class Reservation
+    {
+        [Required(ErrorMessage = "نام شما الزامی است.")]
+        [StringLength(100, ErrorMessage = "نام نمی‌تواند بیشتر از 100 کاراکتر باشد.")]
+        public string Name { get; set; }
+
+        [Required(ErrorMessage = "شماره تماس الزامی است.")]
+        [Phone(ErrorMessage = "لطفاً یک شماره تماس معتبر وارد کنید.")]
+        public string Phone { get; set; }
+
+        [Required(ErrorMessage = "تعداد نفرات الزامی است.")]
+        public int PersonCount { get; set; }
+
+        [Required(ErrorMessage = "تاریخ الزامی است.")]
+        [DataType(DataType.Date)]
+        public string? ReservationDate { get; set; }
+
+        [Required(ErrorMessage = "ساعت الزامی است.")]
+        [DataType(DataType.Time)]
+        public string? ReservationTime { get; set; }
+
+        [StringLength(500, ErrorMessage = "توضیحات نمی‌تواند بیشتر از 500 کاراکتر باشد.")]
+        public string Message { get; set; }
+    }
+    public class BasketOrder
+    {
+        public BE.Food Food { get; set; }
+        public byte Count { get; set; }
+        public double Price { get; set; }
+    }
     public class Comment
     {
         [Key]
@@ -65,7 +96,11 @@ namespace Restaurant2.Models
         public string? Description { get; set; }
         public IFormFile? Photo { get; set; }
         public string? Price { get; set; }
+        public int? SpecialPrice { get; set; }
         public float? Star { get; set; }
+        public bool IsSpecial { get; set; }
+
+        public bool Delete { get; set; } = true;
 
         [ForeignKey("MenuId")]
         public int MenuId { get; set; }
@@ -76,6 +111,8 @@ namespace Restaurant2.Models
         public FoodHistory? FoodHistory { get; set; }
 
         public List<Comment> Comments { get; set; } = new List<Comment>();
+        public Order Order { get; set; }
+
     }
     public class Order
     {
@@ -83,11 +120,11 @@ namespace Restaurant2.Models
         public int Id { get; set; }
         public byte? Count { get; set; }
         public int FoodId { get; set; }
-        public Food Food { get; set; }
+        public Food? Food { get; set; }
 
         [ForeignKey("OrderBasketId")]
         public int OrderBasketId { get; set; }
-        public Basket Basket { get; set; }
+        public Basket? Basket { get; set; }
 
         public double Price { get; set; }
      
